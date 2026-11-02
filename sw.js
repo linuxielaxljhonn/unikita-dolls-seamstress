@@ -1,6 +1,6 @@
 /* Service worker de Unikita Dolls Seamstress.
    PARA PUBLICAR UNA VERSIÓN NUEVA: cambia VERSION (y APP_VERSION en index.html) y vuelve a subir la carpeta. */
-const VERSION = '1.3.1';
+const VERSION = '1.4.0';
 const CACHE = 'unikita-' + VERSION;
 const SHELL = ['./', 'index.html', 'data.js', 'engine.js', 'illustrate.js', 'gate.js', 'logo.png', 'manifest.webmanifest',
   'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png'];

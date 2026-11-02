@@ -100,7 +100,13 @@ ol.steps li{margin:4px 0}
 .gcard svg{width:100%;height:auto;display:block;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8;border-radius:10px}
 .gcard:hover{border-color:var(--pink)}
 .gcard b{display:block;font-size:13.5px;margin-top:6px;line-height:1.25}.gcard span{font-size:11.5px;color:var(--muted)}
-.preview{display:flex;gap:14px;align-items:center}.preview svg{width:130px;height:auto;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8;border-radius:10px;flex:none}
+.preview{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.photo{position:relative;width:130px;aspect-ratio:200/290;border-radius:10px;border:2px dashed #f3b9cb;display:grid;place-items:center;overflow:hidden;flex:none;background:#fffaf8;text-align:center;font-size:12px;color:var(--muted)}
+.photo.has{border:3px solid #fff;outline:2px solid var(--cyan)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo label{cursor:pointer;padding:8px;margin:0;text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500;font-size:12.5px;line-height:1.35}
+.photo label span{font-size:26px;display:block}
+.photo .pdel{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:99px;border:0;background:rgba(62,10,18,.7);color:#fff;cursor:pointer;font-size:15px;line-height:1}.preview svg{width:130px;height:auto;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8;border-radius:10px;flex:none}
 .dcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;text-align:center}
 .dcard .ph{aspect-ratio:200/290;border-radius:10px;overflow:hidden;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8}
 .dcard .ph img,.dcard .ph svg{width:100%;height:100%;object-fit:cover;display:block}
@@ -121,7 +127,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
 <script src="gate.js"></script>
 <header><div class="in">
   <div class="brand"><img src="logo.png" alt="Logotipo Unikita Dolls"><div><h1>Unikita Dolls <small>Seamstress</small></h1>
-  <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 77 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button><button class="btn sec owner-only" id="inviteBtn" style="margin-top:8px;display:none">🎟️ Invitar amigas</button><div id="guestPill"><b id="guestName">Invitada</b><button id="guestOut">Salir</button></div></div></div>
+  <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 78 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button><button class="btn sec owner-only" id="inviteBtn" style="margin-top:8px;display:none">🎟️ Invitar amigas</button><div id="guestPill"><b id="guestName">Invitada</b><button id="guestOut">Salir</button></div></div></div>
 </div></header>
 <nav id="tabs">
   <button data-v="gen" class="on">Generador</button>
@@ -154,7 +160,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
     </details>
    </div>
    <div class="card">
-    <label>Estilo (catálogo de 77 modelos)</label>
+    <label>Estilo (catálogo de 78 modelos)</label>
     <select id="style"></select>
     <label>Prenda base</label>
     <select id="garment"></select>
@@ -200,7 +206,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
     <p class="small" id="summary" style="margin:8px 0 0"></p>
     <p class="small" style="margin:4px 0 0">Imprime al <b>100 % / tamaño real</b> y mide el cuadrado de prueba (5 cm) antes de cortar. Línea continua = corte · discontinua fina = costura · punto-raya gruesa = doblez.</p>
    </div>
-   <div class="card" style="margin-top:14px"><div class="preview"><div id="fig"></div><div><h3 style="margin:0 0 4px" id="figT"></h3><p class="small" id="figD" style="margin:0">Figurín orientativo: se actualiza con cada opción que cambies.</p></div></div></div>
+   <div class="card" style="margin-top:14px"><div class="preview"><div id="fig"></div><div id="photo" class="photo"></div><div><h3 style="margin:0 0 4px" id="figT"></h3><p class="small" id="figD" style="margin:0">Figurín orientativo: se actualiza con cada opción que cambies.</p></div></div></div>
    <div class="pages" id="pages"></div>
    <div class="card" style="margin-top:16px">
      <h3 style="margin-top:0">Montaje</h3>
@@ -213,7 +219,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
 
 <!-- ================= CATÁLOGO VISUAL ================= -->
 <section class="view" id="v-cat">
- <div class="prose"><h2 style="margin-top:0">Catálogo visual: los 77 estilos</h2>
+ <div class="prose"><h2 style="margin-top:0">Catálogo visual: los 78 estilos</h2>
  <p>Figurines técnicos dibujados por la app sobre un maniquí neutro, con las mismas opciones que usa el patrón. Sirven para hacerse una idea del modelo: colores y proporciones son orientativos. Pulsa una tarjeta para abrir su patrón en el Generador.</p></div>
  <div class="filters" style="max-width:420px"><div><label>Categoría</label><select id="catF"><option value="">Todas</option></select></div></div>
  <div class="gallery" id="gallery"></div>
@@ -538,7 +544,7 @@ Prenda  { bloques usados, opciones, pasos de montaje }</pre>
 <tr><td>FreeSewing (humano, código abierto)</td><td>Decenas de diseños paramétricos de adulto: bikini, bloques de cuerpo, abrigo, chinos, top drapeado, leggings, falda lápiz, chaquetas vaqueras y bomber recientes…</td><td>Sirvió de referencia para los nuevos modelos (bomber, vaquera, leggings, bikini). Un patrón humano exportado en SVG se puede escalar con la pestaña del escalador.</td></tr></table>
 <p class="small">Respeta las licencias: muchos patrones son gratis para uso personal; no redistribuyas un patrón ajeno escalado como si fuera tuyo.</p>
 <h3>Hoja de ruta</h3>
-<ol><li><b>Fase 1 (hecha):</b> motor, 38 prendas base y 77 estilos con nombre, modo manual por prenda, escalador de patrones humanos o de otras muñecas, base de medidas e impresión 1:1.</li>
+<ol><li><b>Fase 1 (hecha):</b> motor, 38 prendas base y 78 estilos con nombre, modo manual por prenda, escalador de patrones humanos o de otras muñecas, base de medidas e impresión 1:1.</li>
 <li><b>Fase 2:</b> medir físicamente los moldes marcados como estimados y subirlos a "medido"; más modelos (abrigo, bañador, kimono, mono de peto, falda tutú); vista previa sobre silueta.</li>
 <li><b>Fase 3:</b> PWA, cuentas, galería de muñecas compartidas por la comunidad, PDF multitalla por capas, tienda de modelos premium.</li></ol>
 </section>
@@ -760,6 +766,7 @@ function run(){
   last={r,pages,dn,gk,S,title:gTitle(gk)};
   renderManual(r);
   $('#disNow').textContent='Se guardará: '+gTitle(gk)+' · '+dn+' · '+Object.keys(curP).length+' ajuste(s) manual(es) · '+curCustom.length+' pieza(s) a medida.';
+  renderPhoto();
   try{$('#fig').innerHTML=ILLUS.draw(gk,curOpts);$('#figT').textContent=gTitle(gk);$('#figD').textContent=G[gk].n+' · '+r.pieces.length+' piezas · tejido '+S.fabric+'. Figurín orientativo: se actualiza con cada opción.'}catch(e){}
 }
 function exportHTML(){
@@ -999,7 +1006,7 @@ fetch('disenos.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{COM=
 renderDesigns();renderCust();
 
 // ---------- PWA: instalación y actualizaciones ----------
-const APP_VERSION='1.3.1';
+const APP_VERSION='1.4.0';
 // ---------- acceso: contraseña e invitaciones ----------
 const APP_URL='https://linuxielaxljhonn.github.io/unikita-dolls-seamstress/';
 let ACC=null,accDirty=0;
@@ -1061,6 +1068,32 @@ if(!IN_CLAUDE&&'serviceWorker' in navigator&&(location.protocol==='https:'||loca
 }
 $('#chkUpd').onclick=()=>{if(!swReg){toast(IN_CLAUDE?'Las actualizaciones automáticas funcionan en la app publicada e instalada.':'Actualizaciones no disponibles en este navegador.');return}
   swReg.update().then(()=>{if(!swReg.waiting&&!swReg.installing)toast('Tienes la última versión ('+APP_VERSION+')')}).catch(()=>toast('Sin conexión: inténtalo más tarde'))};
+
+// ---------- foto de ejemplo de la prenda real ----------
+// fotos compartidas: carpeta fotos/ del repositorio con el nombre del estilo (p. ej. fotos/vestido-halter.jpg)
+// fotos locales: las que sube cada persona, guardadas solo en su dispositivo
+const pslug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase();
+const photoKey=()=>curStyle?pslug(curStyle[1]):'base-'+$('#garment').value;
+let photoReq=0;
+function renderPhoto(){
+  const k=photoKey(),box=$('#photo'),req=++photoReq;let local=null;
+  try{local=localStorage.getItem('unikita_foto_'+k)}catch(e){}
+  const empty=()=>{box.classList.remove('has');box.title='Para que la vean todas: sube la foto a la carpeta fotos/ del repositorio como '+k+'.jpg';
+    box.innerHTML=`<label><span>📷</span>Añadir foto de ejemplo<input type="file" accept="image/*" hidden></label>`;
+    box.querySelector('input').onchange=e=>addPhoto(e.target.files[0],k)};
+  const showImg=(src,isLocal)=>{box.classList.add('has');box.title=isLocal?'Foto guardada en este dispositivo':'Foto de ejemplo';box.innerHTML=`<img src="${src}" alt="Foto de ejemplo de la prenda real">`+(isLocal?'<button class="pdel" title="Quitar esta foto">×</button>':'');
+    const b=box.querySelector('.pdel');if(b)b.onclick=()=>{try{localStorage.removeItem('unikita_foto_'+k)}catch(e){}renderPhoto()}};
+  if(local){showImg(local,true);return}
+  empty();
+  const tryExt=['jpg','webp','png'];let i=0;const img=new Image();
+  img.onload=()=>{if(req===photoReq)showImg(img.src,false)};
+  img.onerror=()=>{if(++i<tryExt.length&&req===photoReq)img.src=`fotos/${k}.${tryExt[i]}`};
+  img.src=`fotos/${k}.${tryExt[0]}`;
+}
+function addPhoto(f,k){if(!f)return;const img=new Image();
+  img.onload=()=>{const m=Math.min(1,700/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*m);c.height=Math.round(img.height*m);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(img.src);
+    const url=c.toDataURL('image/jpeg',0.8);try{localStorage.setItem('unikita_foto_'+k,url);toast('Foto guardada en este dispositivo')}catch(e){toast('No hay espacio para guardar la foto en este navegador')}renderPhoto()};
+  img.onerror=()=>toast('No se pudo leer la imagen');img.src=URL.createObjectURL(f)}
 
 // al abrir: recuperar lo último que se usó, o empezar con una falda
 (function(){let u=null;try{u=JSON.parse(localStorage.getItem('unikita_ultimo')||'null')}catch(e){}
