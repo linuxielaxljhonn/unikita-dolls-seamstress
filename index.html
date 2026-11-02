@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unikita Dolls Seamstress</title>
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#c62a1f">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Unikita">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#3a0d14;--paper:#fff8f5;--card:#fff;--rose:#d42a5f;--rose2:#fde3ea;--cherry:#c62a1f;--pink:#f0418f;--cyan:#1fb3c4;--cyan2:#dff6f8;--wine:#3e0a12;--line:#f1dcd8;--muted:#86626a;--ok:#1f8f97;--warn:#b5520f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper) radial-gradient(circle,rgba(212,42,95,.07) 1.4px,transparent 1.6px) 0 0/22px 22px;color:var(--ink);font:15px/1.5 "DM Sans",system-ui,sans-serif}
+.brand{display:flex;align-items:center;gap:18px}
+.brand img{width:88px;height:88px;border-radius:22px;box-shadow:0 6px 18px rgba(198,42,31,.25),0 0 0 3px #fff,0 0 0 5px var(--cyan);flex:none}
+.brand h1{font-family:Pacifico,cursive;font-weight:400;font-size:40px;line-height:1.05;margin:0;color:var(--cherry);text-shadow:0 0 1px #fff,0 0 10px rgba(240,65,143,.35)}
+.brand h1 small{display:inline-block;font-family:"DM Sans",sans-serif;font-weight:700;font-size:15px;letter-spacing:.32em;text-transform:uppercase;color:#fff;background:var(--cyan);padding:3px 10px 3px 13px;border-radius:99px;margin-left:8px;vertical-align:middle;text-shadow:none;box-shadow:0 0 12px rgba(31,179,196,.55)}
+header{background:linear-gradient(120deg,#fff 0%,#fff3f1 55%,#e9fbfc 100%);border-bottom:3px solid var(--pink);box-shadow:0 2px 0 var(--cyan)}
+header .in{max-width:1320px;margin:auto;padding:20px 24px 16px}
+@media(max-width:640px){.brand{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center}.brand img{width:64px;height:64px;border-radius:16px}.brand h1{font-size:28px}.brand h1 small{font-size:11px;margin:4px 0 0}.brand p{grid-column:1/-1;font-size:13.5px}.brand>div{display:contents}
+nav{flex-wrap:nowrap!important;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}nav button{flex:none!important}}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.15;margin:0 0 .5em}
+h1{font-size:28px}h2{font-size:22px;margin-top:1.2em;color:var(--cherry)}h3{font-size:17px;margin-top:1.1em}
+
+header p{margin:.35em 0 0;color:var(--muted);max-width:820px}
+nav{display:flex;gap:6px;flex-wrap:wrap;max-width:1320px;margin:16px auto 0;padding:0 24px}
+nav button{border:1.5px solid var(--line);background:#fff;padding:8px 15px;font:inherit;font-weight:700;color:var(--muted);cursor:pointer;border-radius:99px;transition:all .15s}
+nav button:hover{border-color:var(--pink);color:var(--rose)}
+nav button.on{color:#fff;background:linear-gradient(135deg,var(--cherry),var(--pink));border-color:transparent;box-shadow:0 3px 10px rgba(240,65,143,.35)}
+main{max-width:1320px;margin:auto;padding:20px 24px 60px}
+.view{display:none}.view.on{display:block}
+.gen{display:grid;grid-template-columns:360px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.gen{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(62,10,18,.05)}
+.card+.card{margin-top:14px}
+label{display:block;font-size:12.5px;font-weight:700;color:#0f7f8c;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.03em}
+select,input[type=number],input[type=text]{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.meas{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;margin-top:6px}
+.meas div{display:flex;flex-direction:column}
+.meas span{font-size:12px;color:var(--muted)}
+.meas input{padding:5px 7px}
+.meas input.est{border-style:dashed;background:#fffaf2}
+details summary{cursor:pointer;font-weight:700;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:99px;border:0;background:linear-gradient(135deg,var(--cherry),var(--pink));color:#fff;font:inherit;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(212,42,95,.28)}
+.btn:not(:disabled):hover{filter:brightness(1.07)}
+.btn.sec{background:#fff;color:#0f7f8c;border:1.5px solid var(--cyan);box-shadow:none}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pages{display:flex;flex-direction:column;gap:14px;align-items:center;margin-top:14px}
+.page{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.12);width:100%;max-width:560px}
+.page svg{display:block;width:100%;height:auto}
+.pill{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:99px;font-weight:700}
+.pill.medido{background:#e3f3ea;color:var(--ok)}.pill.estimado{background:#fbeedd;color:var(--warn)}.pill.escalado{background:#e6ecfb;color:#3757a8}
+.msg{padding:10px 12px;border-radius:9px;background:#fbeedd;color:#6d4208;margin-top:10px;font-size:14px}
+.msg.info{background:var(--cyan2);color:#0b5a63}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--cyan2);font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);cursor:pointer}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.n.e{color:var(--warn);font-style:italic}
+.tablewrap{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:10px;background:#fff}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px}
+.prose{max-width:860px}
+.prose p,.prose li{max-width:76ch}
+.prose table{margin:10px 0 18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+pre{background:var(--wine);color:#f6eef3;padding:14px;border-radius:10px;overflow:auto;line-height:1.45}
+.rank{font-family:Pacifico,cursive;font-size:30px;color:var(--pink);float:left;margin-right:10px;line-height:1}
+ol.steps li{margin:4px 0}
+.small{font-size:13px;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.gcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 8px 10px;text-align:center;cursor:pointer;font:inherit;color:inherit;transition:transform .12s,box-shadow .12s}
+.gcard:hover,.gcard:focus-visible{transform:translateY(-3px);box-shadow:0 6px 16px rgba(240,65,143,.18);outline:none}
+.gcard svg{width:100%;height:auto;display:block;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8;border-radius:10px}
+.gcard:hover{border-color:var(--pink)}
+.gcard b{display:block;font-size:13.5px;margin-top:6px;line-height:1.25}.gcard span{font-size:11.5px;color:var(--muted)}
+.preview{display:flex;gap:14px;align-items:center}.preview svg{width:130px;height:auto;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8;border-radius:10px;flex:none}
+.dcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;text-align:center}
+.dcard .ph{aspect-ratio:200/290;border-radius:10px;overflow:hidden;background:radial-gradient(circle,#fde3ea 1.2px,transparent 1.4px) 0 0/12px 12px,#fffaf8}
+.dcard .ph img,.dcard .ph svg{width:100%;height:100%;object-fit:cover;display:block}
+.dcard b{display:block;font-size:13.5px;margin-top:6px}.dcard span{font-size:11.5px;color:var(--muted);display:block}
+.dcard .acts{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}.dcard .acts button{padding:4px 9px;font-size:12px}
+textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;resize:vertical}
+.cp{border:1.5px dashed var(--line);border-radius:12px;padding:8px 10px;margin:8px 0;background:#fffaf8}
+.cp .meas{margin-top:2px}.cp .hd{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.cp .hd b{font-size:13px;color:var(--cherry)}.cp .hd button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1}
+.chk{display:flex;gap:6px;align-items:center;font-size:12.5px}.chk input{width:auto}
+#updBar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:10;background:var(--wine);color:#fff;padding:10px 12px 10px 16px;border-radius:99px;display:none;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#updBar button{border:0;border-radius:99px;padding:6px 12px;font:inherit;font-weight:700;background:linear-gradient(135deg,var(--cherry),var(--pink));color:#fff;cursor:pointer}
+#installBtn{display:none;margin-top:8px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:9px;display:none;z-index:9}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div class="brand"><img src="logo.png" alt="Logotipo Unikita Dolls"><div><h1>Unikita Dolls <small>Seamstress</small></h1>
+  <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 77 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button></div></div>
+</div></header>
+<nav id="tabs">
+  <button data-v="gen" class="on">Generador</button>
+  <button data-v="cat">Catálogo visual</button>
+  <button data-v="dis">Mis diseños</button>
+  <button data-v="esc">Escalar un patrón</button>
+  <button data-v="med">Medidas de muñecas</button>
+  <button data-v="guia">Guía de patronaje</button>
+  <button data-v="mat">Materiales</button>
+  <button data-v="algo">El algoritmo</button>
+  <button data-v="opc">Opciones del proyecto</button>
+</nav>
+<main>
+<!-- ================= GENERADOR ================= -->
+<section class="view on" id="v-gen">
+ <div class="gen">
+  <div>
+   <div class="card">
+    <label>Muñeca</label>
+    <select id="doll"></select>
+    <div id="dollinfo" class="small" style="margin-top:6px"></div>
+    <details id="measbox">
+      <summary>Medidas (cm) — edítalas con las de tu muñeca</summary>
+      <div class="meas" id="meas"></div>
+      <div class="bar" style="margin-top:10px">
+        <input type="text" id="myname" placeholder="Nombre de tu muñeca" style="flex:1">
+        <button class="btn sec" id="savedoll">Guardar</button>
+      </div>
+      <p class="small">Recuadro discontinuo = valor estimado. Mide con una tira de papel y regla; para la cintura pon una goma elástica y deja que se coloque sola.</p>
+    </details>
+   </div>
+   <div class="card">
+    <label>Estilo (catálogo de 77 modelos)</label>
+    <select id="style"></select>
+    <label>Prenda base</label>
+    <select id="garment"></select>
+    <div id="opts"></div>
+    <div class="row2">
+      <div><label>Tejido</label><select id="fabric"><option value="plano">Plano (algodón, popelín…)</option><option value="punto">Punto elástico</option></select></div>
+      <div><label>Holgura</label><select id="fit"><option value="ajustado">Ajustado</option><option value="normal">Normal</option><option value="holgado">Holgado</option></select></div>
+    </div>
+    <div class="row2">
+      <div><label>Margen costura (mm)</label><input type="number" id="sa" value="5" min="2" max="12" step="0.5"></div>
+      <div><label>Dobladillo (mm)</label><input type="number" id="hem" value="7" min="0" max="20" step="0.5"></div>
+    </div>
+    <div id="warn"></div>
+   </div>
+   <div class="card">
+    <details id="manual" open>
+     <summary>Modo manual: medidas y ajustes de esta prenda</summary>
+     <p class="small">Solo aparecen las medidas que usa esta prenda. Cambia cualquiera y el patrón se recalcula. En "Ajustes de diseño" deja vacío para usar el valor automático (entre paréntesis).</p>
+     <div class="meas" id="gmeas"></div>
+     <label>Ajustes de diseño (cm)</label>
+     <div class="meas" id="gpar"></div>
+     <div class="bar" style="margin-top:10px"><button class="btn sec" id="resetp">Restablecer ajustes</button></div>
+    </details>
+   </div>
+   <div class="card">
+    <details id="custombox">
+     <summary>Piezas a medida (diseños propios) <span class="pill estimado" id="custCount" style="display:none"></span></summary>
+     <p class="small">Añade piezas con las medidas de un patrón original, en cm y sin margen: la app añade márgenes, doblez, hilo y etiquetas. Se suman a la prenda elegida; con la prenda base <b>Diseño libre</b> el patrón tiene solo estas piezas.</p>
+     <div id="custList"></div>
+     <div class="row2"><div><label>Tipo de pieza</label><select id="custType"><option value="rect">Rectángulo</option><option value="trap">Trapecio</option><option value="sector">Arco (circular, capa…)</option><option value="puntos">Por puntos (x,y en cm)</option></select></div><div style="align-self:end"><button class="btn sec" id="custAdd" style="width:100%;justify-content:center">+ Añadir pieza</button></div></div>
+    </details>
+   </div>
+  </div>
+  <div>
+   <div class="card">
+    <div class="bar">
+      <button class="btn" id="dlhtml" disabled>Descargar para imprimir</button>
+      <button class="btn sec" id="dlsvg" disabled>Descargar SVG (plotter/Cricut)</button>
+      <button class="btn sec" id="cpsvg">Copiar SVG</button>
+    </div>
+    <p class="small" id="summary" style="margin:8px 0 0"></p>
+    <p class="small" style="margin:4px 0 0">Imprime al <b>100 % / tamaño real</b> y mide el cuadrado de prueba (5 cm) antes de cortar. Línea continua = corte · discontinua fina = costura · punto-raya gruesa = doblez.</p>
+   </div>
+   <div class="card" style="margin-top:14px"><div class="preview"><div id="fig"></div><div><h3 style="margin:0 0 4px" id="figT"></h3><p class="small" id="figD" style="margin:0">Figurín orientativo: se actualiza con cada opción que cambies.</p></div></div></div>
+   <div class="pages" id="pages"></div>
+   <div class="card" style="margin-top:16px">
+     <h3 style="margin-top:0">Montaje</h3>
+     <ol class="steps" id="steps"></ol>
+     <div id="notes"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= CATÁLOGO VISUAL ================= -->
+<section class="view" id="v-cat">
+ <div class="prose"><h2 style="margin-top:0">Catálogo visual: los 77 estilos</h2>
+ <p>Figurines técnicos dibujados por la app sobre un maniquí neutro, con las mismas opciones que usa el patrón. Sirven para hacerse una idea del modelo: colores y proporciones son orientativos. Pulsa una tarjeta para abrir su patrón en el Generador.</p></div>
+ <div class="filters" style="max-width:420px"><div><label>Categoría</label><select id="catF"><option value="">Todas</option></select></div></div>
+ <div class="gallery" id="gallery"></div>
+</section>
+
+<!-- ================= MIS DISEÑOS ================= -->
+<section class="view" id="v-dis">
+ <div class="prose"><h2 style="margin-top:0">Mis diseños y los de mis compañeras</h2>
+ <p>Un diseño guarda todo lo que has hecho en el Generador: prenda o estilo, opciones, ajustes del modo manual, piezas a medida, tejido, márgenes y la muñeca para la que se hizo. Se puede enviar como archivo <code>.unikita.json</code> o como código para pegar (por WhatsApp o correo), y quien lo recibe lo importa aquí. Los diseños se guardan en este dispositivo.</p></div>
+ <div class="gen">
+  <div>
+   <div class="card">
+    <h3 style="margin-top:0">Guardar el diseño actual</h3>
+    <div class="small" id="disNow"></div>
+    <label>Nombre del diseño</label><input type="text" id="disName" maxlength="60" placeholder="Ej.: Vestido Lunares de Ana">
+    <label>Autora</label><input type="text" id="disAutor" maxlength="40">
+    <label>Descripción y notas de montaje</label><textarea id="disDesc" rows="3" maxlength="1500"></textarea>
+    <label>Foto de la prenda (opcional)</label><input type="file" id="disFoto" accept="image/*">
+    <div class="bar" style="margin-top:10px"><button class="btn" id="disSave">Guardar diseño</button></div>
+   </div>
+   <div class="card">
+    <h3 style="margin-top:0">Recibir diseños</h3>
+    <label>Archivos .unikita.json</label><input type="file" id="disImpFile" accept=".json,application/json" multiple>
+    <label>…o pega un código UNIKITA</label><textarea id="disImpCode" rows="3" placeholder="UNIKITA:..."></textarea>
+    <div class="bar" style="margin-top:8px"><button class="btn sec" id="disImpBtn">Importar código</button></div>
+    <label style="display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;color:var(--ink);font-weight:500"><input type="checkbox" id="disAdapt" checked style="width:auto"> Al abrir, adaptar a la muñeca elegida en el Generador</label>
+   </div>
+   <div class="card">
+    <h3 style="margin-top:0">Catálogo común</h3>
+    <p class="small">Para que todas tengan los mismos diseños: importa los que te envíen, descarga <code>disenos.json</code>, sustituye ese archivo en la carpeta de la app y vuelve a subirla (ver "Instalar y actualizar"). Al abrir la app, todas verán los nuevos diseños.</p>
+    <button class="btn sec" id="disExpAll">Descargar disenos.json (catálogo común + mis diseños)</button>
+   </div>
+  </div>
+  <div>
+   <h3 style="margin-top:0">Mis diseños</h3><div class="gallery" id="disMine"></div>
+   <h3>Catálogo común</h3><div class="gallery" id="disCom"></div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= ESCALADOR ================= -->
+<section class="view" id="v-esc">
+ <div class="prose"><h2 style="margin-top:0">Escalar un patrón existente a tu muñeca</h2>
+ <p>Sube un patrón (de tamaño humano, o hecho para otra muñeca) en SVG, PNG o JPG. La app lo escala <b>por separado en ancho y en alto</b>: el ancho según el pecho, la cintura o la cadera, y el alto según el talle o el largo de pierna. Así se compensa que una muñeca no es una persona en pequeño. El resultado sale en hojas A4 a tamaño real.</p></div>
+ <div class="gen">
+  <div>
+   <div class="card">
+    <h3 style="margin-top:0">1. Patrón de origen</h3>
+    <label>Archivo (SVG, PNG o JPG)</label><input type="file" id="escFile" accept=".svg,image/svg+xml,image/png,image/jpeg">
+    <label>Ancho real del dibujo del archivo (cm)</label><input type="number" id="escW" step="0.1" min="0.5">
+    <div class="small" id="escWinfo">Si el archivo no trae medidas, mide en el patrón original una línea conocida (por ejemplo, el cuadrado de prueba) y calcula el ancho total.</div>
+    <label>¿Para qué cuerpo está hecho?</label><select id="escSrc"></select>
+    <div id="escSrcDollBox" style="display:none"><label>Muñeca de origen</label><select id="escSrcDoll"></select></div>
+    <div class="meas" id="escSrcM"></div>
+    <label>Margen de costura incluido en el original (cm)</label><input type="number" id="escSA" value="1.5" step="0.1" min="0">
+   </div>
+   <div class="card">
+    <h3 style="margin-top:0">2. Destino y referencias</h3>
+    <p class="small" style="margin:0">Muñeca destino: la elegida en el Generador — <b id="escDoll"></b></p>
+    <div class="row2">
+     <div><label>Referencia ancho</label><select id="escRx"><option value="B">Pecho</option><option value="W">Cintura</option><option value="Hp">Cadera</option></select></div>
+     <div><label>Referencia alto</label><select id="escRy"><option value="BL">Talle (cuerpo)</option><option value="Out">Cintura → suelo (faldas, pantalones)</option><option value="same">Igual que el ancho</option></select></div>
+    </div>
+    <div id="escInfo"></div>
+    <div class="bar" style="margin-top:10px"><button class="btn" id="escDl" disabled>Descargar para imprimir</button><button class="btn sec" id="escSvg" disabled>Descargar SVG</button></div>
+   </div>
+  </div>
+  <div><div class="pages" id="escPages"><div class="msg info">Sube un archivo para ver el patrón escalado.</div></div></div>
+ </div>
+</section>
+
+<!-- ================= MEDIDAS ================= -->
+<section class="view" id="v-med">
+ <div class="prose"><h2 style="margin-top:0">Medidas por marca, molde, año y estilo</h2>
+ <p>Cada fila es un molde de cuerpo, no un personaje: dentro de una misma línea muchos personajes comparten cuerpo. <span class="pill medido">medido</span> = medidas principales publicadas por una fuente; <span class="pill escalado">escalado</span> = derivado de un molde medido con el factor que publica la comunidad; <span class="pill estimado">estimado</span> = proporciones calculadas, mide tu muñeca antes de cortar. Los números en cursiva naranja son estimaciones proporcionales.</p>
+ <p class="small">No existe un registro oficial de medidas: Mattel y MGA no las publican. Las muñecas de una misma línea varían ±2–3 mm entre lotes, y los modelos de "todos los años" se agrupan aquí por molde, porque el patrón depende del cuerpo, no de la edición.</p></div>
+ <div class="filters">
+   <div><label>Marca</label><select id="fMarca"><option value="">Todas</option></select></div>
+   <div><label>Estilo de cuerpo</label><select id="fEstilo"><option value="">Todos</option></select></div>
+   <div><label>Disponible en el año</label><input type="number" id="fAnio" placeholder="p. ej. 2012"></div>
+   <div><label>Buscar</label><input type="text" id="fTxt" placeholder="Curvy, G3, Ken…"></div>
+ </div>
+ <div class="bar" style="margin-bottom:10px"><button class="btn sec" id="dlcsv" disabled>Descargar CSV</button><span class="small" id="count"></span></div>
+ <div class="tablewrap"><table id="tbl"></table></div>
+</section>
+
+<!-- ================= GUÍA ================= -->
+<section class="view prose" id="v-guia">
+<h2 style="margin-top:0">Guía práctica de patronaje aplicada a muñecas</h2>
+<p>El patronaje profesional se basa en dibujar <b>bloques base</b> (también llamados patrones base o <i>slopers</i>) a partir de medidas, y transformarlos en modelos. Un bloque es la plantilla básica, sin margen de costura, que encaja el cuerpo; el patrón de corte añade márgenes, aplomos, hilo y detalles de diseño. Lo mismo vale para una muñeca de 29 cm: solo cambian la escala y unas cuantas reglas.</p>
+
+<h3>1. Los cinco bloques que lo generan todo</h3>
+<table><tr><th>Bloque</th><th>Medidas clave</th><th>Prendas que salen de él</th></tr>
+<tr><td>Cuerpo (corpiño) delantero y espalda</td><td>pecho, cintura, cuello, hombros, talle</td><td>vestidos, camisas, camisetas, chalecos, bodis, monos, sudaderas</td></tr>
+<tr><td>Manga</td><td>largo de brazo, contorno brazo, paso de mano, largo de sisa</td><td>corta, ¾, larga, farol, obispo, jamón (victoriana)</td></tr>
+<tr><td>Falda</td><td>cintura, cadera, cintura–cadera, largo</td><td>recta, lápiz, evasé (A), y de ella: fruncida, tableada, circular</td></tr>
+<tr><td>Pantalón</td><td>cintura, cadera, tiro, entrepierna, muslo, tobillo</td><td>pantalón recto, pitillo, acampanado, vaquero, short, bermuda, mono</td></tr>
+<tr><td>Punto ceñido</td><td>contornos con holgura negativa</td><td>bragas, body, leggings, medias</td></tr></table>
+
+<h3>2. Medir la muñeca</h3>
+<ul>
+<li>Usa una tira de papel o un hilo y luego mídelo con regla: la cinta métrica es demasiado rígida para contornos de 6–15 cm.</li>
+<li><b>Cintura real</b>: pon una goma elástica fina alrededor y deja que se coloque sola; ahí estaría el ombligo.</li>
+<li><b>Cabeza</b>: por encima de las cejas y con el pelo, porque es lo que tiene que pasar por el escote o caber en la capucha.</li>
+<li><b>Paso de mano</b>: las manos de Monster High y muchas Barbie tienen los dedos abiertos y rígidos; mide su contorno: es el mínimo de cualquier puño o manga larga.</li>
+<li>Pies de tacón: mide el pie en su postura natural; el bajo de un pantalón debe dejarlo pasar.</li>
+<li>Mide dos veces y anota la fecha y el modelo exacto (año y número en la nuca o espalda).</li></ul>
+
+<h3>3. Holgura (ease): la regla que más cambia a escala muñeca</h3>
+<p>La holgura es lo que el patrón mide de más sobre el cuerpo. En personas, un cuerpo base de tejido plano lleva unos 4–5 cm sobre el pecho. En muñeca no basta con dividir entre 6: <b>el grosor de la tela y las costuras pesa proporcionalmente mucho más</b>. Imagina que toda tu ropa fuese de fieltro grueso: tendrías que subir una talla para tener el mismo espacio dentro.</p>
+<table><tr><th>Tejido</th><th>Ajustado</th><th>Normal</th><th>Holgado</th></tr>
+<tr><td>Plano</td><td>+6 %</td><td>+12 %</td><td>+22 %</td></tr>
+<tr><td>Punto elástico</td><td>−5 %</td><td>+2 %</td><td>+10 %</td></tr></table>
+<p>La app suma además ~2 mm de "grosor de costura" en tejido plano. La holgura total se reparte entre las 4 costuras de costado (÷ 4), igual que en patronaje de adulto.</p>
+
+<h3>4. Pinzas: cuándo sí y cuándo no</h3>
+<p>Las pinzas convierten un rectángulo plano en una forma con curva. En muñecas pequeñas apenas hacen falta: si el pecho es solo unos 2 cm mayor que la cintura, la tela se asienta sin pinzas; con 5 cm de diferencia, sí. La app pone pinza solo cuando la diferencia pecho–cintura supera 2,5 cm y el tejido es plano, y la limita a 6 mm. En faldas, el exceso cadera–cintura va a la curva lateral y a una pinza pequeña.</p>
+
+<h3>5. Márgenes de costura y dobladillos</h3>
+<ul><li>Profesional en adulto: 1–1,5 cm. En muñeca 1:6 se trabaja con <b>3–6 mm</b> (muchos patrones comerciales usan 4 mm o ¼"). La app usa 5 mm por defecto.</li>
+<li>Dobladillos 5–8 mm. Bordes "al doblez" no llevan margen.</li>
+<li>Aberturas: el margen del centro espalda se ensancha (≈5 mm) para que haga de <b>cruce</b> del velcro o los broches. Las muñecas casi nunca pueden pasar la cabeza o las manos por una prenda cerrada.</li></ul>
+
+<h3>6. Hilo, doblez, aplomos</h3>
+<ul><li><b>Hilo (grainline)</b>: la flecha va paralela al orillo. Un error de hilo en piezas tan pequeñas retuerce la prenda.</li>
+<li><b>Doblez</b>: se dobla la tela y la línea va sobre el pliegue: salen piezas simétricas sin costura central.</li>
+<li><b>Aplomos/muescas y puntos</b>: marcan dónde casar piezas o dónde empieza un frunce.</li>
+<li>Toda pieza debe llevar nombre, cuántas cortar, hilo, centro y talla/muñeca.</li></ul>
+
+<h3>7. Transformaciones de diseño</h3>
+<ul>
+<li><b>Fruncido</b>: rectángulo de 1,5–2,5 × el contorno donde se une; a menor escala, menos volumen (tela fina).</li>
+<li><b>Tablas (pliegues)</b>: cada tabla de ancho visible <i>p</i> consume 3<i>p</i> de tela (cara + dos fondos).</li>
+<li><b>Falda circular</b>: radio de cintura r = cintura ÷ 2π (circular completa) o cintura ÷ π (semicircular); radio de bajo = r + largo.</li>
+<li><b>Volantes</b>: tira de 1,8–2 × el largo donde se aplica.</li>
+<li><b>Manga farol</b>: abrir la copa (×1,5) y fruncir; <b>jamón</b> (victoriana): copa ×1,9 muy alta, estrecha hacia el puño; <b>obispo</b>: bajo ancho fruncido en puño.</li>
+<li><b>Corsé</b>: 4 paneles por mitad con costuras que reparten la reducción pecho→cintura→cadera, canales para ballenas y borde de ojales.</li>
+<li><b>Vaquero</b>: pantalón ajustado + línea de canesú, bolsillo de ojal, bragueta en pespunte, pretina y trabillas.</li>
+<li><b>Capucha</b>: alto = alto de cabeza ×1,2; fondo = contorno de cabeza ×0,36; el escote de la capucha mide lo mismo que el escote de la prenda.</li></ul>
+
+<h3>8. Escala y familias de tamaño</h3>
+<p>Barbie, Defa Lucy y la mayoría de "fashion dolls" son 1:6 (≈29–31 cm). Monster High G1 fabricó tres tamaños con las mismas proporciones (adulto, básico, hermana pequeña), así que un patrón se puede imprimir al 115 % o al 90 %; las líneas de 17" y 28" son 150 % y 250 %, pero al ampliar hay que reducir la holgura extra que se añadió por grosor de costura. Bratz y Monster High tienen cabezas enormes: escotes y capuchas se calculan con la cabeza, no con el cuerpo.</p>
+
+<h3>9. Proceso de trabajo recomendado</h3>
+<ol><li>Mide la muñeca y corrige las medidas en el generador.</li>
+<li>Genera el patrón e imprime al 100 %; comprueba el cuadrado de 5 cm.</li>
+<li>Haz una <b>prueba (toile)</b> en tela barata o pañuelo de papel grueso: a esta escala tarda 10 minutos y evita perder tela buena.</li>
+<li>Ajusta medidas (no el dibujo) y vuelve a generar. Guarda tu muñeca.</li>
+<li>Corta, aplica antideshilachante a los bordes y cose con puntada corta (1,5–2 mm).</li></ol>
+
+<h3>10. Llevar un patrón humano a muñeca</h3>
+<p>Escalar en proporción (dividir todo entre 6) casi nunca funciona: una muñeca tiene la cintura, la cabeza y las piernas en otra proporción que una persona. El método que usa la pestaña "Escalar un patrón" es el de los patronistas: <b>dos factores</b>, uno horizontal (pecho, cintura o cadera, según la prenda) y otro vertical (talle para cuerpos, cintura→suelo para faldas y pantalones). Después:</p>
+<ul><li>Corta por la línea de costura del original y añade 4–5 mm de margen.</li><li>Elimina las pinzas que queden por debajo de 2–3 mm y repártelas en las costuras.</li><li>Sustituye cremalleras y botones funcionales por velcro y botones decorativos.</li><li>Comprueba que la cabeza y las manos pasan por las aberturas.</li></ul>
+<h3>11. Errores típicos</h3>
+<ul><li>Telas demasiado gruesas o rígidas: la prenda "flota" y no cae.</li>
+<li>Coser mangas y costados cerrados en tubo: en muñeca se monta todo <b>en plano</b> y se cierra al final.</li>
+<li>Olvidar el paso de la mano o del pie.</li>
+<li>Márgenes de 1 cm: abultan y no dejan girar curvas.</li>
+<li>Estampados grandes: elige motivos de 2–5 mm.</li></ul>
+
+<h3>Fuentes consultadas</h3>
+<ul class="small">
+<li><a href="https://dinerija.com/size-guide/">Dinerija — guía de tallas Barbie Regular/Curvy/Petite/Tall</a></li>
+<li><a href="https://pixiefaire.com/collections/barbie-dolls">Pixie Faire — medidas de Barbie Fashionista y patrones Monster High</a></li>
+<li><a href="https://chellywood.com/2025/10/28/tape-measure-tuesday-what-are-the-sewing-measurements-for-monster-high-dolls-monsterhigh-tapemeasuretuesday/">Chellywood — medidas de costura Monster High</a> · <a href="https://chellywood.com/2018/04/20/tallbarbie-and-endless-hair-barbie-dolls-measurements/">Tall Barbie y Barbie 17"</a></li>
+<li><a href="https://daytondolls.wordpress.com/2015/04/20/barbie-body-proportions-and-relative-sizes/">Dayton Dolls — proporciones de moldes Barbie</a></li>
+<li><a href="https://monsterhigh.fandom.com/wiki/Body_Sculpts">Monster High Wiki — cuerpos y escalas 115 % / 90 %</a></li>
+<li><a href="https://raddollclothes.com/blogs/news/materials-monday-scale-in-dolls-and-doll-clothing">Rad Doll Clothes — escala, grosor de costura y pinzas</a></li>
+<li><a href="https://slate.com/human-interest/2014/02/barbies-not-the-skinniest-doll-on-the-block-measuring-barbie-bratz-monster-high-and-american-girl-dolls.html">Slate — medidas Bratz y Monster High</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bratz">Wikipedia — historia de cuerpos Bratz</a></li>
+<li><a href="https://kehindeoni.substack.com/p/the-complete-guide-to-adding-ease">Guía de holguras (reparto ÷4)</a></li>
+</ul>
+</section>
+
+<!-- ================= MATERIALES ================= -->
+<section class="view prose" id="v-mat">
+<h2 style="margin-top:0">Lista de materiales básicos</h2>
+<div class="grid3">
+<div class="card"><h3 style="margin-top:0">Medir y trazar</h3><ul>
+<li>Regla metálica de 30 cm con mm</li><li>Tiras de papel / hilo para contornos</li><li>Escuadra pequeña y regla curva (o plantilla de curvas)</li><li>Portaminas 0,5 mm, rotulador borrable de tela</li><li>Papel de patrón o cartulina fina (las piezas duran más)</li><li>Impresora (imprimir al 100 %)</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Cortar</h3><ul>
+<li>Tijeras de tela pequeñas y afiladas</li><li>Tijeras de papel aparte</li><li>Cúter circular 28 mm + base de corte</li><li>Tijeras de piquetear o de bordar para curvas</li><li>Pesos (monedas) en lugar de alfileres</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Coser</h3><ul>
+<li>Máquina con puntada recta 1,5–2 mm y zigzag estrecho</li><li>Agujas de máquina 60/8–70/10 (punto: aguja ballpoint 70)</li><li>Hilo de poliéster fino (100–120)</li><li>Agujas de mano finas, dedal</li><li>Alfileres finos o clips pequeños</li><li>Pinzas, hemostato o palillo para dar la vuelta</li><li>Mini plancha o plancha con punta fina</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Telas recomendadas</h3><ul>
+<li><b>Algodón lawn / batista / popelín fino</b>: vestidos, camisas, faldas</li>
+<li><b>Punto de camiseta fino</b> (jersey ligero): camisetas, sudaderas, bodis</li>
+<li><b>Licra / medias de nylon recicladas</b>: medias, leggings, bañadores</li>
+<li><b>Denim ligero 4–6 oz o chambray</b>: vaqueros, chalecos</li>
+<li><b>Raso fino / tafetán</b>: victoriano, corsé exterior</li>
+<li><b>Tul suave</b>: enaguas, faldas tutú</li>
+<li><b>Algodón firme o lona fina</b>: forro de corsé</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Mercería a escala</h3><ul>
+<li>Velcro fino (o velcro normal cortado a lo ancho en tiras de 4–5 mm)</li><li>Broches de presión 4–5 mm, corchetes mini</li><li>Elástico de 2–3 mm (ropa interior, jaretas)</li><li>Botones 3–4 mm, cuentas de 2 mm</li><li>Puntilla y encaje de 5–15 mm, cinta de raso 1–3 mm</li><li>Bies de 6–10 mm (o córtalo tú al bies)</li><li>Ballenas: plástico fino, cerdas de escoba o hilo de pesca grueso</li><li>Ojetes de 2 mm (opcional)</li></ul></div>
+<div class="card"><h3 style="margin-top:0">Acabados</h3><ul>
+<li>Antideshilachante líquido (tipo Fray Check)</li><li>Cola textil y cinta termoadhesiva fina</li><li>Entretela fina para cuellos y pretinas</li><li>Hilo de pespunte mostaza/dorado (vaqueros)</li><li>Pinturas textiles para estampar a escala</li></ul></div>
+</div>
+<h3>Kit de inicio (prioridad)</h3>
+<ol><li>Tijeras finas, regla de 30 cm, rotulador borrable</li><li>Algodón fino en 3 colores + 1 punto fino + medias de nylon viejas</li><li>Velcro fino, elástico 3 mm, antideshilachante</li><li>Hilo, agujas 70/10, pinzas para girar</li><li>Más adelante: cúter circular, puntillas, broches, raso, denim ligero</li></ol>
+</section>
+
+<!-- ================= ALGORITMO ================= -->
+<section class="view prose" id="v-algo">
+<h2 style="margin-top:0">El algoritmo de la app</h2>
+<p>El motor es <b>determinista</b>: cada patrón se calcula con geometría a partir de medidas y reglas, nunca con IA generativa (la IA no garantiza precisión de milímetros). Es la misma filosofía que usan los sistemas paramétricos profesionales.</p>
+<pre>ENTRADA: medidas de la muñeca (19 campos, cm) + prenda + opciones
+         + tejido (plano/punto) + holgura (ajustado/normal/holgado)
+         + margen de costura + dobladillo
+
+1. COMPLETAR MEDIDAS
+   si falta un campo → estimarlo con la plantilla proporcional de su familia
+   (barbie, ken, mh, bratz): longitudes ∝ altura, contornos ∝ pecho/cadera
+
+2. PREPARAR: pasar a mm; e = HOLGURA[tejido][ajuste]; bulk = 2 mm si plano
+
+3. TRAZAR BLOQUES (puntos + curvas Bézier)
+   cuerpo:  ¼pecho = (B·(1+e)+bulk)/4      ¼cintura = (W·(1+0.8e)+bulk)/4
+            ancho escote = N/6+1   escote del. = N/6+2   escote esp. = N/16+1
+            hombro = Sh/2, caída = 0.12·hombro, prof. sisa = BL/2+2
+            pinza solo si (B−W) > 2.5 cm y tejido plano (máx. 6 mm)
+   manga:   ancho = máx(UA·1.18…, paso_mano·1.1+2)
+            altura de copa → búsqueda binaria hasta que
+            largo_copa = largo_sisa × 1.04 (plano) o × 1.00 (punto)
+   falda:   ¼cintura, ¼cadera, curva de cadera, vuelo según estilo
+            circular: r = cintura/2π; tablas: tela = 3 × cintura
+   pantalón:¼cadera, extensión tiro del. = 0.22·¼cadera, tras. = 0.42·¼cadera
+            (se amplía si el muslo no cabe), bajo ≥ paso del pie
+
+4. TRANSFORMAR AL MODELO (fruncir, plisar, punta victoriana, cuello,
+   capucha, canesú, cruce de botones, volantes, paneles de corsé)
+
+5. PIEZA = contorno cerrado de aristas {tipo: costura | bajo | doblez}
+   corte = desplazamiento de cada arista por su margen
+           (intersección de rectas desplazadas, inglete limitado)
+   + hilo, nombre, "cortar N", pinzas, puntos de frunce, marcas
+
+6. COMPROBAR: sin valores NaN; paso de mano y pie; avisos de tejido
+
+7. MAQUETAR: ordenar por altura, empaquetar en estanterías sobre A4
+   (190×277 mm útiles), girar 90° si cabe así, si no → mosaico con
+   solape de 10 mm. Hoja 1: cuadrado de prueba 5 cm + leyenda
+
+8. EXPORTAR: HTML imprimible (SVG en mm reales), SVG continuo para
+   plotter/Cricut, instrucciones de montaje
+
+MODO MANUAL
+   cada lectura de una medida queda registrada → la app muestra solo
+   las medidas que usa esa prenda; cada ajuste de diseño (largo, escote,
+   manga, bajo, vuelo, solapa…) tiene un valor automático que se puede
+   sustituir por uno escrito a mano
+
+ESCALADOR (patrón humano u otra muñeca → tu muñeca)
+   factor_ancho = medida_muñeca[pecho|cintura|cadera] / medida_origen[…]
+   factor_alto  = medida_muñeca[talle|cintura→suelo] / medida_origen[…]
+   la imagen se escala con los dos factores y se reparte en hojas A4
+   margen original × factor → aviso para recortar por la línea de costura</pre>
+<h3>Estructura de datos</h3>
+<pre>Muñeca  { marca, linea, cuerpo, desde, hasta, estilo, fam, conf,
+          medidas: {H,B,W,Hp,N,Sh,BL,WH,R,Ins,Out,Th,An,Arm,UA,Hand,Hd,HdH,Ft},
+          fuente }
+Pieza   { nombre, cortar, aristas:[{pts, tipo, margen}], marcas, hilo }
+Prenda  { bloques usados, opciones, pasos de montaje }</pre>
+<h3>Cómo añadir un modelo nuevo</h3>
+<p>Una prenda nueva es una función que llama a los bloques (cuerpo, manga, falda, pantalón), modifica puntos y devuelve piezas. Por ejemplo, un abrigo = cuerpo holgado (+22 %) a largo de cadera + cruce delantero ancho + manga larga + cuello. El motor de márgenes, maquetación e impresión es común a todas.</p>
+</section>
+
+<!-- ================= OPCIONES ================= -->
+<section class="view prose" id="v-opc">
+<h2 style="margin-top:0">Instalar y actualizar la app (PWA)</h2>
+<div class="card"><p>Unikita Dolls Seamstress es una <b>aplicación web instalable (PWA)</b>: una vez publicada en internet se instala en el móvil, la tableta o el ordenador como una app normal, funciona sin conexión y avisa cuando hay versión nueva. <span id="verTxt" class="small"></span></p>
+<ol><li><b>Publicarla (una vez):</b> descomprime el ZIP del proyecto, crea una cuenta gratuita en Netlify y arrastra la carpeta a <a href="https://app.netlify.com/drop">app.netlify.com/drop</a>. Te dará una dirección del tipo <code>tu-nombre.netlify.app</code> (puedes cambiarla en la configuración). También sirve GitHub Pages o cualquier hosting con HTTPS.</li>
+<li><b>Instalarla:</b> abre esa dirección. En Android/Chrome pulsa "Instalar la app" (o menú ⋮ → Instalar). En iPhone/iPad, en Safari: Compartir → "Añadir a pantalla de inicio".</li>
+<li><b>Publicar una versión nueva:</b> cambia los archivos, sube el número de <code>VERSION</code> en <code>sw.js</code> (y <code>APP_VERSION</code> en <code>index.html</code>) y arrastra la carpeta otra vez en la página de "Deploys" de tu sitio. Las compañeras verán el aviso "Hay una versión nueva · Actualizar".</li>
+<li><b>Diseños de las compañeras:</b> cada una guarda su diseño en "Mis diseños" y te lo envía con "Enviar" (archivo) o "Código" (texto para WhatsApp). Tú lo importas, pulsas "Descargar disenos.json", sustituyes ese archivo en la carpeta y la vuelves a subir: no hace falta cambiar la versión, el catálogo común se descarga siempre de nuevo.</li></ol>
+<div class="bar"><button class="btn sec" id="chkUpd">Buscar actualizaciones</button></div>
+<p class="small">Los diseños y las muñecas guardadas viven en cada dispositivo. Para no perderlos al cambiar de móvil, expórtalos (Enviar o Descargar disenos.json).</p></div>
+<h2>Opciones para el proyecto (de más a menos recomendada)</h2>
+<div class="card"><span class="rank">1</span><h3 style="margin-top:0">App web paramétrica propia (esta) → app instalable sin conexión (PWA)</h3>
+<p>JavaScript + SVG en el navegador, sin servidor. Funciona en móvil, tableta y PC; imprime a escala real; la base de medidas es un archivo JSON fácil de ampliar. Siguiente paso: convertirla en PWA instalable, generar PDF por capas por talla, calibración de impresora y guardar en la nube las muñecas de cada usuaria.</p>
+<p class="small"><b>A favor:</b> control total, especializada en muñecas, coste casi cero, se puede vender como servicio o con patrones premium. <b>En contra:</b> cada modelo nuevo hay que programarlo.</p></div>
+<div class="card"><span class="rank">2</span><h3 style="margin-top:0">Construir los modelos sobre FreeSewing</h3>
+<p>FreeSewing es una librería abierta en JavaScript para diseño paramétrico de patrones, con plugins (márgenes, piezas al doblez, títulos, PDF en mosaico). Se definirían "diseños" con medidas de muñeca.</p>
+<p class="small"><b>A favor:</b> motor muy probado y comunidad. <b>En contra:</b> está pensado para medidas humanas (habría que mapear o desactivar validaciones) y obliga a aprender su arquitectura.</p></div>
+<div class="card"><span class="rank">3</span><h3 style="margin-top:0">Seamly2D (escritorio, sin programar)</h3>
+<p>Software libre (GPLv3) de patronaje paramétrico para Windows, Mac y Linux: lee tablas de medidas individuales o multitalla. Crearías un archivo de medidas por muñeca y cada patrón con fórmulas.</p>
+<p class="small"><b>A favor:</b> CAD profesional gratuito, ideal para diseñar y probar modelos antes de programarlos. <b>En contra:</b> no es una app para el público; curva de aprendizaje.</p></div>
+<div class="card"><span class="rank">4</span><h3 style="margin-top:0">App móvil nativa (Kotlin / Swift / Flutter)</h3>
+<p>Como <i>Print Your Fit</i> (Android): fotos de inspiración + medidas → patrón CAD → PDF en mosaico de 36 hojas, con geometría determinista. Solo merece la pena si se quiere vender en tiendas de apps.</p>
+<p class="small"><b>En contra:</b> 3–5× más coste de desarrollo que la web.</p></div>
+<div class="card"><span class="rank">5</span><h3 style="margin-top:0">IA generativa que "dibuje" patrones</h3>
+<p>No recomendable para la geometría: no garantiza milímetros ni que las costuras casen. Sí sirve como asistente (sugerir estilos, nombrar prendas, describir montaje) encima de un motor determinista.</p></div>
+
+<h3>Apps y recursos similares</h3>
+<table><tr><th>Herramienta</th><th>Qué hace</th><th>¿Muñecas?</th></tr>
+<tr><td>FreeSewing</td><td>Librería y web de patrones paramétricos abiertos</td><td>No (humanos)</td></tr>
+<tr><td>Seamly2D / Valentina</td><td>CAD de patronaje paramétrico de escritorio</td><td>Posible con medidas propias</td></tr>
+<tr><td>Print Your Fit</td><td>App Android: medidas → patrón → PDF en mosaico</td><td>No</td></tr>
+<tr><td>Tailornova, Style3D, Browzwear</td><td>Patrón/3D comercial para moda</td><td>No</td></tr>
+<tr><td>Pixie Faire</td><td>Tienda de patrones PDF para muñecas (talla fija)</td><td>Sí, no paramétrico</td></tr>
+<tr><td>Chellywood</td><td>Patrones gratis y fichas de medidas por muñeca</td><td>Sí, no paramétrico</td></tr>
+<tr><td>Dinerija</td><td>Patrones y guía de tallas Barbie por tipo de cuerpo</td><td>Sí, no paramétrico</td></tr></table>
+<p>En la investigación no apareció ninguna herramienta paramétrica dedicada a ropa de muñeca: los recursos para muñecas son patrones fijos por talla. Ese hueco es la oportunidad del proyecto.</p>
+<h3>Recopilaciones de patrones para muñecas (y cómo usarlas aquí)</h3>
+<table><tr><th>Recurso</th><th>Qué ofrece</th><th>Cómo aprovecharlo en la app</th></tr>
+<tr><td><a href="https://chellywood.com/">Chellywood</a></td><td>Cientos de patrones gratis en PDF (carta y A4), organizados por altura de muñeca: 11–11½" (Barbie), Tall y Curvy Barbie, Ken, Tammy, Skipper… También fichas de medidas ("Tape Measure Tuesday") y un análisis de patrones vintage de Simplicity, McCall's y Advance. No incluye una sección para Monster High ni Bratz.</td><td>Sus estilos (vestido lápiz palabra de honor, top halter con falda de volante, pantalón campana, peto, delantal, pijama, bata, chaqueta con cremallera) están en el catálogo de estilos. Para un modelo concreto suyo: descárgalo y pásalo por <b>Escalar un patrón</b> eligiendo "Otra muñeca → Barbie" como origen y tu Monster High, Bratz o Defa Lucy como destino.</td></tr>
+<tr><td><a href="https://www.sewingmachinefun.com/free-printable-doll-clothes-patterns-to-sew/">Sewing Machine Fun</a> (17 patrones gratis)</td><td>Recopilación de patrones gratis para muñecas de 11"–11½": falda con vuelo, vestido de verano con cierre trasero, evasé, vestido palabra de honor, vestido de novia con velo, camiseta de punto, leggings, sirena…</td><td>Igual: estilos incluidos en el catálogo; los PDF concretos se pueden escalar.</td></tr>
+<tr><td><a href="https://pixiefaire.com/">Pixie Faire</a></td><td>Tienda de patrones (algunos gratis) con líneas específicas para Monster High, Barbie y muñecas de 17".</td><td>Usa sus medidas publicadas para comprobar las de tu muñeca.</td></tr>
+<tr><td><a href="https://dinerija.com/size-guide/">Dinerija</a></td><td>Patrones y guía de tallas Barbie Regular / Curvy / Petite / Tall.</td><td>Sus medidas están en la base de datos.</td></tr>
+<tr><td>FreeSewing (humano, código abierto)</td><td>Decenas de diseños paramétricos de adulto: bikini, bloques de cuerpo, abrigo, chinos, top drapeado, leggings, falda lápiz, chaquetas vaqueras y bomber recientes…</td><td>Sirvió de referencia para los nuevos modelos (bomber, vaquera, leggings, bikini). Un patrón humano exportado en SVG se puede escalar con la pestaña del escalador.</td></tr></table>
+<p class="small">Respeta las licencias: muchos patrones son gratis para uso personal; no redistribuyas un patrón ajeno escalado como si fuera tuyo.</p>
+<h3>Hoja de ruta</h3>
+<ol><li><b>Fase 1 (hecha):</b> motor, 38 prendas base y 77 estilos con nombre, modo manual por prenda, escalador de patrones humanos o de otras muñecas, base de medidas e impresión 1:1.</li>
+<li><b>Fase 2:</b> medir físicamente los moldes marcados como estimados y subirlos a "medido"; más modelos (abrigo, bañador, kimono, mono de peto, falda tutú); vista previa sobre silueta.</li>
+<li><b>Fase 3:</b> PWA, cuentas, galería de muñecas compartidas por la comunidad, PDF multitalla por capas, tienda de modelos premium.</li></ol>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<div id="updBar" role="status"><span>Hay una versión nueva de Unikita</span><button id="updBtn">Actualizar</button></div>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="illustrate.js"></script>
+<script>
+(function(){
+const {DOLLS,FIELDS,est}=DOLLDB, {build,G,CATS,STYLES,rotate90,finalize}=ENGINE;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2600)};
+let DL=null;
+// ---------- tabs ----------
+const VIEWS=['gen','cat','dis','esc','med','guia','mat','algo','opc'];
+function show(v){if(!VIEWS.includes(v))v='gen';document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{show(b.dataset.v);try{history.replaceState(null,'','#'+b.dataset.v)}catch(e){location.hash=b.dataset.v}});
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+show(location.hash.slice(1));
+
+// ---------- muñecas propias ----------
+let MINE=[];
+try{MINE=JSON.parse(localStorage.getItem('mis_munecas')||'[]')}catch(e){}
+function allDolls(){return DOLLS.concat(MINE)}
+function fillDollSelect(sel){
+  const s=$('#doll');const groups={};
+  allDolls().forEach(d=>{const g=d.mine?'Mis muñecas':d.marca;(groups[g]=groups[g]||[]).push(d)});
+  s.innerHTML=Object.keys(groups).map(g=>`<optgroup label="${esc(g)}">`+groups[g].map(d=>`<option value="${d.id}">${esc(d.mine?d.cuerpo:d.linea+' · '+d.cuerpo+' ('+d.desde+(d.hasta?'–'+d.hasta:'–hoy')+')')}</option>`).join('')+'</optgroup>').join('');
+  s.value=sel||'d6';
+}
+fillDollSelect();
+$('#garment').innerHTML=CATS.map(c=>`<optgroup label="${esc(c)}">`+Object.entries(G).filter(([k,g])=>g.cat===c).map(([k,g])=>`<option value="${k}">${esc(g.n)}</option>`).join('')+'</optgroup>').join('');
+$('#style').innerHTML='<option value="">— Elige un estilo (opcional) —</option>'+CATS.map(c=>`<optgroup label="${esc(c)}">`+STYLES.map((st,i)=>[st,i]).filter(([st])=>st[0]===c).map(([st,i])=>`<option value="${i}">${esc(st[1])}</option>`).join('')+'</optgroup>').join('');
+
+const OPTDEF={
+ tipoFalda:['Tipo de falda',{recta:'Recta',A:'Evasé (A)',lapiz:'Lápiz',fruncida:'Fruncida',tableada:'Tableada (pliegues)',circular:'Circular',semicircular:'Semicircular',pisos:'De 3 pisos / volantes',tutu:'Tutú de tul',globo:'Globo (bubble)',cruzada:'Cruzada / pareo',altabaja:'Asimétrica alta-baja'}],
+ escoteTipo:['Parte de arriba',{normal:'Con hombros',tirantes:'Tirantes',strapless:'Palabra de honor',halter:'Halter',wrap:'Cruzado'}],
+ topTipo:['Tipo de top',{tirantes:'Tirantes / camisola',bandeau:'Palabra de honor (bandeau)',halter:'Halter',cruzado:'Cruzado (ballet)'}],
+ largoTop:['Largo',{normal:'A la cadera',crop:'Crop (corto)'}],
+ abertura:['Abertura',{espalda:'Espalda (velcro)',delante:'Delante (botones, camisero)'}],
+ largo:['Largo',{mini:'Mini',rodilla:'Rodilla',midi:'Midi',largo:'Largo (suelo)'}],
+ manga:['Manga',{sin:'Sin manga',corta:'Corta',tres:'Tres cuartos',larga:'Larga',farol:'Farol (abullonada)',obispo:'Obispo (con puño)',jamon:'Jamón (victoriana)'}],
+ cuello:['Escote',{redondo:'Redondo',pico:'En pico (V)'}],
+ cintura:['Cintura',{elastico:'Elástico (jareta)',pretina:'Pretina con abertura'}],
+ pierna:['Pierna',{recto:'Recta',pitillo:'Pitillo',acampanado:'Acampanada',palazzo:'Palazzo / ancha',barril:'Barril (barrel)'}],
+ largoP:['Largo pantalón',{corto:'Corto',bermuda:'Bermuda',capri:'Capri',largo:'Largo'}],
+ capucha:['Capucha',{si:'Sí',no:'No'}],
+ volantes:['Volantes en falda',{0:'Ninguno',1:'1',2:'2',3:'3'}]
+};
+let curOpts={};
+let curP={},curStyle=null;
+function renderOpts(preset){
+  const g=G[$('#garment').value];curOpts=Object.assign({},g.opts,preset||{});
+  const keys=[...new Set(Object.keys(g.opts).concat(Object.keys(preset||{})))].filter(k=>OPTDEF[k]);
+  $('#opts').innerHTML=keys.map(k=>`<label>${OPTDEF[k][0]}</label><select data-o="${k}">`+Object.entries(OPTDEF[k][1]).map(([v,t])=>`<option value="${v}" ${String(curOpts[k])===v?'selected':''}>${t}</option>`).join('')+'</select>').join('');
+  $('#opts').querySelectorAll('select').forEach(s=>s.onchange=()=>{curOpts[s.dataset.o]=s.value;curP={};run()});
+  $('#fabric').value=g.fab;$('#fit').value=g.fit;
+}
+let curM={}, curSrc=[];
+function curDoll(){return allDolls().find(d=>d.id===$('#doll').value)||DOLLS[6]}
+function renderMeas(){
+  const d=curDoll();curM=Object.assign({},d.m);curSrc=d.src||[];
+  $('#dollinfo').innerHTML=`<span class="pill ${d.conf}">${d.conf}</span> ${esc(d.estilo||'')} · ${d.mine?'tus medidas':esc(d.ref||'')}`;
+  $('#meas').innerHTML=FIELDS.map(([k,n,h])=>`<div title="${esc(h)}"><span>${n}</span><input type="number" step="0.1" min="0.5" data-m="${k}" value="${curM[k]}" class="${curSrc.includes(k)||d.mine?'':'est'}"></div>`).join('');
+  $('#meas').querySelectorAll('input').forEach(i=>i.oninput=()=>{const v=parseFloat(i.value);if(v>0){curM[i.dataset.m]=v;i.classList.remove('est');runSoon()}});
+  if(window.escRefresh)escRefresh();
+}
+$('#doll').onchange=()=>{renderMeas();run()};
+$('#garment').onchange=()=>{curStyle=null;$('#style').value='';curP={};renderOpts();run()};
+$('#style').onchange=()=>{const i=$('#style').value;if(i===''){curStyle=null;run();return}
+  const st=STYLES[+i];curStyle=st;curP={};$('#garment').value=st[2];renderOpts(st[3]);if(st[4])$('#fabric').value=st[4];if(st[5])$('#fit').value=st[5];run()};
+$('#resetp').onclick=()=>{curP={};lastSig='';run()};
+function gTitle(gk){return curStyle?curStyle[1]:G[gk].n}
+['fabric','fit','sa','hem'].forEach(id=>$('#'+id).onchange=run);
+$('#savedoll').onclick=()=>{
+  const name=$('#myname').value.trim()||'Mi muñeca '+(MINE.length+1);
+  const d={id:'m'+Date.now(),mine:true,marca:'Mis muñecas',linea:'Propia',cuerpo:name,desde:new Date().getFullYear(),hasta:null,estilo:'Medida propia',fam:'barbie',conf:'medido',m:Object.assign({},curM),src:Object.keys(curM),ref:'Medidas propias'};
+  MINE.push(d);try{localStorage.setItem('mis_munecas',JSON.stringify(MINE))}catch(e){toast('Guardada solo en esta sesión (el navegador no permite almacenamiento)')}
+  fillDollSelect(d.id);renderMeas();run();if(window.escRefresh)escRefresh();toast('Muñeca guardada: '+name);
+};
+
+// ---------- render SVG ----------
+const PW=190,PH=277,GAP=5,HEAD=54;
+const f2=v=>Math.round(v*100)/100;
+const pd=pts=>pts.map((p,i)=>(i?'L':'M')+f2(p[0])+' '+f2(p[1])).join(' ');
+function pieceSVG(p,tx,ty,doll){
+  const dx=tx-p.bb.x,dy=ty-p.bb.y;let s=`<g transform="translate(${f2(dx)} ${f2(dy)})">`;
+  s+=`<path d="${pd(p._cut)} Z" fill="#fff" stroke="#111" stroke-width="0.35"/>`;
+  p.edges.forEach(e=>{
+    if(e.kind==='fold'){
+      s+=`<path d="${pd(e.pts)}" fill="none" stroke="#111" stroke-width="0.6" stroke-dasharray="3 1 0.6 1"/>`;
+      const a=e.pts[0],b=e.pts[e.pts.length-1],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;let ang=Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI;if(ang>90||ang<-90)ang+=180;
+      s+=`<text x="${f2(mx)}" y="${f2(my)}" font-size="1.8" font-weight="700" text-anchor="middle" transform="rotate(${f2(ang)} ${f2(mx)} ${f2(my)}) translate(0 2.6)" fill="#111">DOBLEZ</text>`;
+    } else s+=`<path d="${pd(e.pts)}" fill="none" stroke="#888" stroke-width="0.22" stroke-dasharray="1.2 0.8"/>`;
+  });
+  p.marks.forEach(m=>{
+    if(m.t==='dart') s+=`<path d="${pd(m.pts)}" fill="none" stroke="#d42a5f" stroke-width="0.3"/>`;
+    else if(m.t==='line'){s+=`<path d="${pd(m.pts)}" fill="none" stroke="#d42a5f" stroke-width="0.25" ${m.dash?'stroke-dasharray="1.5 1"':''}/>`;
+      if(m.label){const q=m.pts[0];s+=`<text x="${f2(q[0]+0.8)}" y="${f2(q[1]-0.8)}" font-size="1.5" fill="#d42a5f">${esc(m.label)}</text>`}}
+    else if(m.t==='dot') s+=`<circle cx="${f2(m.at[0])}" cy="${f2(m.at[1])}" r="0.7" fill="#d42a5f"/>`;
+    else if(m.t==='text'){const r=(m.rot||0)+(p.rot?90:0);s+=`<text x="${f2(m.at[0])}" y="${f2(m.at[1])}" font-size="${m.size||1.8}" text-anchor="middle" fill="#d42a5f" ${r?`transform="rotate(${r} ${f2(m.at[0])} ${f2(m.at[1])})"`:''}>${esc(m.s)}</text>`}
+  });
+  if(p.grain){const [a,b]=p.grain,ang=Math.atan2(b[1]-a[1],b[0]-a[0]),h=1.6,ar=(q,t)=>`M${f2(q[0])} ${f2(q[1])} L${f2(q[0]+h*Math.cos(t+2.6))} ${f2(q[1]+h*Math.sin(t+2.6))} M${f2(q[0])} ${f2(q[1])} L${f2(q[0]+h*Math.cos(t-2.6))} ${f2(q[1]+h*Math.sin(t-2.6))}`;
+    s+=`<path d="M${f2(a[0])} ${f2(a[1])} L${f2(b[0])} ${f2(b[1])} ${ar(b,ang)} ${ar(a,ang+Math.PI)}" stroke="#555" stroke-width="0.3" fill="none"/>`}
+  const L=p.labelAt||[(p.bb.x+p.bb.X)/2,(p.bb.y+p.bb.Y)/2];
+  const fs=Math.max(1.4,Math.min(2.6,p.w/14,p.h/6));
+  const lines=[p.name,p.cut,doll];
+  const off=p.grain?Math.min(4,p.w*0.12):0;
+  s+=`<text x="${f2(L[0]+off)}" y="${f2(L[1]-fs)}" font-size="${f2(fs)}" fill="#222" text-anchor="middle" font-family="Helvetica,Arial,sans-serif">`+lines.map((t,i)=>`<tspan x="${f2(L[0]+off)}" dy="${i?f2(fs*1.25):0}" ${i===0?'font-weight="700"':''} font-size="${f2(i===2?fs*0.75:fs)}">${esc(t)}</tspan>`).join('')+`</text>`;
+  return s+'</g>';
+}
+function clone(p){const c=JSON.parse(JSON.stringify(p));return finalize(c)}
+function pack(pieces,pw,ph,head){
+  const items=pieces.map(clone);
+  items.forEach(p=>{if((p.w>pw||p.h>ph)&&p.h<=pw&&p.w<=ph) rotate90(p); else if(p.w>p.h*1.6&&p.w>pw*0.6&&p.w<=ph&&p.h<=pw) rotate90(p);});
+  items.sort((a,b)=>b.h-a.h);
+  const pages=[],big=[];let pg={items:[]},x=0,y=head,sh=0;pages.push(pg);
+  items.forEach(p=>{
+    if(p.w>pw||p.h>ph){big.push(p);return}
+    if(x+p.w>pw){x=0;y+=sh+GAP;sh=0}
+    if(y+p.h>ph){pg={items:[]};pages.push(pg);x=0;y=0;sh=0}
+    pg.items.push({p,x,y});x+=p.w+GAP;sh=Math.max(sh,p.h);
+  });
+  big.forEach(p=>{const tw=pw-10,th=ph-10,c=Math.ceil(p.w/tw),r=Math.ceil(p.h/th);
+    for(let j=0;j<r;j++)for(let i=0;i<c;i++)pages.push({tile:{p,ox:i*tw,oy:j*th,i:i+1,j:j+1,c,r}})});
+  return pages;
+}
+function header(doll,gname,S){
+  return `<g font-family="Helvetica,Arial,sans-serif"><text x="0" y="6" font-size="5" font-weight="700">${esc(gname)}</text>
+  <text x="0" y="11.5" font-size="3">${esc(doll)}</text>
+  <text x="0" y="16" font-size="2.4" fill="#555">Tejido ${S.fabric} · holgura ${S.fit} · margen ${S.sa} mm incluido · dobladillo ${S.hem} mm</text>
+  <text x="0" y="20" font-size="2.4" fill="#555">Imprimir al 100 % (tamaño real). Comprueba que el cuadrado mide 5 cm.</text>
+  <g transform="translate(0 23)" font-size="2.2"><line x1="0" y1="2" x2="10" y2="2" stroke="#111" stroke-width="0.35"/><text x="12" y="2.8">corte</text>
+  <line x1="26" y1="2" x2="36" y2="2" stroke="#888" stroke-width="0.25" stroke-dasharray="1.2 0.8"/><text x="38" y="2.8">costura</text>
+  <line x1="56" y1="2" x2="66" y2="2" stroke="#111" stroke-width="0.6" stroke-dasharray="3 1 0.6 1"/><text x="68" y="2.8">doblez</text>
+  <line x1="86" y1="2" x2="96" y2="2" stroke="#d42a5f" stroke-width="0.3"/><text x="98" y="2.8">pinza / marca</text></g>
+  </g>`;
+}
+function testSquare(){return `<g transform="translate(${PW-50} 0)"><rect x="0" y="0" width="50" height="50" fill="none" stroke="#d42a5f" stroke-width="0.4"/><text x="25" y="27" font-size="4" text-anchor="middle" fill="#d42a5f" font-family="Helvetica,Arial">5 × 5 cm</text></g>`}
+function pageSVG(pg,idx,total,doll,gname,S,w,h){
+  let s=`<svg xmlns="http://www.w3.org/2000/svg" ${w?`width="${PW}mm" height="${PH}mm"`:''} viewBox="0 0 ${PW} ${PH}">`;
+  s+=`<rect x="0" y="0" width="${PW}" height="${PH}" fill="#fff"/>`;
+  if(pg.tile){const t=pg.tile;s+=`<defs><clipPath id="c${idx}"><rect x="0" y="0" width="${PW}" height="${PH-8}"/></clipPath></defs><g clip-path="url(#c${idx})"><g transform="translate(${-t.ox} ${-t.oy})">${pieceSVG(t.p,0,0,doll)}</g></g>`;
+    s+=`<text x="2" y="${PH-2}" font-size="2.6" font-family="Helvetica,Arial">${esc(t.p.name)} — mosaico fila ${t.j}/${t.r}, columna ${t.i}/${t.c}. Solapa 10 mm con la hoja siguiente.</text>`;
+    s+=`<path d="M${PW-10} 0 V${PH-8} M0 ${PH-18} H${PW}" stroke="#d42a5f" stroke-width="0.2" stroke-dasharray="2 1"/>`;}
+  else{ if(idx===0){s+=header(doll,gname,S)+testSquare();}
+    pg.items.forEach(it=>s+=pieceSVG(it.p,it.x,it.y,doll));}
+  s+=`<text x="${PW-2}" y="${PH-2}" font-size="2.4" text-anchor="end" fill="#777" font-family="Helvetica,Arial">Unikita Dolls Seamstress · Hoja ${idx+1}/${total}</text>`;
+  return s+'</svg>';
+}
+function sheetSVG(pieces,doll){ // SVG continuo de 290 mm de ancho
+  const W=290;const pages=packFlat(pieces,W);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}mm" height="${f2(pages.h)}mm" viewBox="0 0 ${W} ${f2(pages.h)}">`+pages.items.map(it=>pieceSVG(it.p,it.x,it.y,doll)).join('')+'</svg>';
+}
+function packFlat(pieces,W){const items=pieces.map(clone);items.forEach(p=>{if(p.w>W&&p.h<=W)rotate90(p)});items.sort((a,b)=>b.h-a.h);let x=0,y=0,sh=0;const out=[];
+  items.forEach(p=>{if(x+p.w>W){x=0;y+=sh+GAP;sh=0}out.push({p,x,y});x+=p.w+GAP;sh=Math.max(sh,p.h)});return {items:out,h:y+sh+2}}
+
+// ---------- ejecutar ----------
+let last=null,tmr;
+function runSoon(){clearTimeout(tmr);tmr=setTimeout(run,250)}
+function settings(){return {fabric:$('#fabric').value,fit:$('#fit').value,sa:+$('#sa').value||5,hem:+$('#hem').value||0,opts:curOpts,p:Object.assign({},curP),custom:curCustom.map(c=>Object.assign({},c))}}
+let lastSig='';
+const FLAB=Object.fromEntries(FIELDS.map(f=>[f[0],f]));
+function renderManual(r){
+  const sig=$('#garment').value+'|'+r.needs.join(',')+'|'+r.params.map(p=>p.key).join(',')+'|'+$('#doll').value;
+  const fm=()=>{
+    $('#gmeas').innerHTML=r.needs.map(k=>`<div title="${esc(FLAB[k][2])}"><span>${esc(FLAB[k][1])}</span><input type="number" step="0.1" min="0.5" data-gm="${k}" value="${curM[k]}"></div>`).join('');
+    $('#gpar').innerHTML=r.params.length?r.params.map(p=>`<div><span>${esc(p.label)} <i>(${String(p.def).replace('.',',')}${p.unit==='x'?'×':''})</i></span><input type="number" step="${p.unit==='x'?0.05:0.1}" min="0" data-gp="${p.key}" placeholder="${p.def}" value="${p.over?p.val:''}"></div>`).join(''):'<div class="small">Esta prenda no tiene ajustes extra.</div>';
+    $('#gmeas').querySelectorAll('input').forEach(i=>i.oninput=()=>{const v=parseFloat(i.value);if(v>0){curM[i.dataset.gm]=v;const mi=document.querySelector(`#meas input[data-m="${i.dataset.gm}"]`);if(mi){mi.value=v;mi.classList.remove('est')}runSoon()}});
+    $('#gpar').querySelectorAll('input').forEach(i=>i.oninput=()=>{const v=i.value.trim();if(v==='')delete curP[i.dataset.gp];else if(!isNaN(+v)&&+v>0)curP[i.dataset.gp]=+v;runSoon()});
+  };
+  if(sig!==lastSig){lastSig=sig;fm();return}
+  r.needs.forEach(k=>{const i=document.querySelector(`#gmeas input[data-gm="${k}"]`);if(i&&i!==document.activeElement)i.value=curM[k]});
+  r.params.forEach(p=>{const i=document.querySelector(`#gpar input[data-gp="${p.key}"]`);if(i){i.placeholder=p.def;const sp=i.previousElementSibling.querySelector('i');if(sp)sp.textContent='('+String(p.def).replace('.',',')+(p.unit==='x'?'×':'')+')'}});
+}
+function run(){
+  const d=curDoll(),gk=$('#garment').value,S=settings();
+  let r;try{r=build(gk,curM,S)}catch(e){$('#pages').innerHTML='<div class="msg">No se pudo generar con estas medidas: '+esc(e.message)+'</div>';return}
+  const dn=(d.mine?d.cuerpo:d.marca+' '+d.cuerpo);
+  const pages=pack(r.pieces,PW,PH,HEAD);
+  const svgs=pages.map((pg,i)=>pageSVG(pg,i,pages.length,dn,gTitle(gk),S,false));
+  $('#pages').innerHTML=svgs.map(s=>`<div class="page">${s}</div>`).join('');
+  const flat=packFlat(r.pieces,290);
+  $('#summary').innerHTML=`<b>${r.pieces.length}</b> piezas · <b>${pages.length}</b> hoja(s) A4 · tela aprox. <b>29 × ${Math.ceil(flat.h/10)} cm</b> (más si corta 2 o al doblez)`;
+  $('#steps').innerHTML=r.steps.map(s=>`<li>${esc(s)}</li>`).join('');
+  $('#notes').innerHTML=r.notes.concat([].concat(...r.pieces.map(p=>p.notes||[]))).filter((v,i,a)=>a.indexOf(v)===i).map(n=>`<div class="msg info">${esc(n)}</div>`).join('');
+  const w=[...r.warn];if(d.conf==='estimado'&&!d.mine)w.push('Medidas estimadas para este molde: mide tu muñeca y corrige los campos antes de cortar tela buena.');
+  $('#warn').innerHTML=w.map(t=>`<div class="msg">${esc(t)}</div>`).join('');
+  last={r,pages,dn,gk,S,title:gTitle(gk)};
+  renderManual(r);
+  $('#disNow').textContent='Se guardará: '+gTitle(gk)+' · '+dn+' · '+Object.keys(curP).length+' ajuste(s) manual(es) · '+curCustom.length+' pieza(s) a medida.';
+  try{$('#fig').innerHTML=ILLUS.draw(gk,curOpts);$('#figT').textContent=gTitle(gk);$('#figD').textContent=G[gk].n+' · '+r.pieces.length+' piezas · tejido '+S.fabric+'. Figurín orientativo: se actualiza con cada opción.'}catch(e){}
+}
+function exportHTML(){
+  const {r,pages,dn,gk,S}=last;
+  const T=last.title;
+  const sv=pages.map((pg,i)=>`<div class="pg">${pageSVG(pg,i,pages.length,dn,T,S,true)}</div>`).join('');
+  return `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>${esc(T)} — ${esc(dn)}</title><style>@page{size:A4;margin:10mm}body{margin:0;font-family:Helvetica,Arial,sans-serif}.pg{width:190mm;height:277mm;page-break-after:always;overflow:hidden}.pg svg{display:block}.ins{padding:0 4mm;font-size:11pt}.no{position:fixed;top:10px;right:10px;padding:10px 16px;font-size:14px;background:#d42a5f;color:#fff;border:0;border-radius:8px;cursor:pointer}@media print{.no{display:none}}@media screen{body{background:#eee}.pg{background:#fff;margin:10px auto;box-shadow:0 1px 5px #0003}.ins{background:#fff;width:182mm;margin:10px auto;padding:4mm}}</style></head><body><button class="no" onclick="print()">Imprimir (100 %)</button>${sv}<div class="ins"><h2>${esc(T)} — montaje</h2><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${r.notes.map(n=>`<p>${esc(n)}</p>`).join('')}<p style="color:#666;font-size:9pt">Generado con Unikita Dolls Seamstress. Márgenes de ${S.sa} mm incluidos. Haz siempre una prueba en tela barata.</p></div></body></html>`;
+}
+const IN_CLAUDE=!!(window.claude&&window.claude.use);
+const MIME={html:'text/html',svg:'image/svg+xml',json:'application/json',csv:'text/csv'};
+function canSave(){return !IN_CLAUDE||!!DL}
+async function save(name,data){
+  if(!IN_CLAUDE){try{const ext=name.split('.').pop();const b=data instanceof Blob?data:new Blob([data],{type:(MIME[ext]||'application/octet-stream')+';charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(u);a.remove()},2000)}catch(e){toast('No se pudo descargar')}return}
+  if(!DL){toast('La descarga no está disponible aquí: usa "Copiar SVG"');return}
+  try{await DL.save({filename:name,data});}catch(e){if(e&&e.code==='declined')return;toast('No se pudo descargar ('+(e&&e.code||'error')+')')}
+}
+const slug=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/gi,'-').toLowerCase();
+$('#dlhtml').onclick=()=>last&&save(`patron-${slug(last.title)}-${slug(last.dn)}.html`,exportHTML());
+$('#dlsvg').onclick=()=>last&&save(`patron-${slug(last.title)}-${slug(last.dn)}.svg`,sheetSVG(last.r.pieces,last.dn));
+$('#cpsvg').onclick=async()=>{if(!last)return;try{await navigator.clipboard.writeText(sheetSVG(last.r.pieces,last.dn));toast('SVG copiado: pégalo en un archivo .svg o en Inkscape')}catch(e){toast('El navegador no permitió copiar')}};
+
+// ---------- escalador ----------
+const HUMAN={ // tabla estándar aproximada mujer EU (cm): pecho, cintura, cadera, talle espalda, cintura→suelo
+ 'EU 34':[80,62,88,40,103],'EU 36':[84,66,92,40.5,104],'EU 38':[88,70,96,41,105],'EU 40':[92,74,100,41.5,105],
+ 'EU 42':[96,78,104,42,106],'EU 44':[100,82,108,42.5,106],'EU 46':[104,86,112,43,107],'EU 48':[110,92,118,43.5,107]};
+const EK=['B','W','Hp','BL','Out'], ELAB={B:'Pecho',W:'Cintura',Hp:'Cadera',BL:'Talle espalda',Out:'Cintura → suelo'};
+let escImg=null, escSrcM={};
+$('#escSrc').innerHTML=Object.keys(HUMAN).map(k=>`<option value="${k}">Mujer ${k} (tabla estándar aprox.)</option>`).join('')+'<option value="doll">Otra muñeca</option><option value="manual">Medidas propias del patrón</option>';
+$('#escSrc').value='EU 38';
+function fillEscDolls(){$('#escSrcDoll').innerHTML=allDolls().map(d=>`<option value="${d.id}">${esc((d.mine?'':d.marca+' · ')+d.cuerpo)}</option>`).join('')}
+fillEscDolls();
+function escSetSrc(){
+  const v=$('#escSrc').value;$('#escSrcDollBox').style.display=v==='doll'?'':'none';
+  if(HUMAN[v]) EK.forEach((k,i)=>escSrcM[k]=HUMAN[v][i]);
+  else if(v==='doll'){const d=allDolls().find(x=>x.id===$('#escSrcDoll').value)||DOLLS[6];EK.forEach(k=>escSrcM[k]=d.m[k])}
+  $('#escSrcM').innerHTML=EK.map(k=>`<div><span>${ELAB[k]} (cm)</span><input type="number" step="0.1" min="0.5" data-ek="${k}" value="${escSrcM[k]||''}"></div>`).join('');
+  $('#escSrcM').querySelectorAll('input').forEach(i=>i.oninput=()=>{const x=parseFloat(i.value);if(x>0){escSrcM[i.dataset.ek]=x;if($('#escSrc').value!=='manual')$('#escSrc').value='manual';escRender()}});
+  escRender();
+}
+$('#escSrc').onchange=escSetSrc;$('#escSrcDoll').onchange=escSetSrc;
+['escRx','escRy','escW','escSA'].forEach(id=>$('#'+id).oninput=escRender);
+function unitToCm(v){const m=String(v||'').trim().match(/^([\d.]+)\s*(mm|cm|in|pt|px)?$/);if(!m)return null;const n=+m[1],u=m[2]||'px';return u==='mm'?n/10:u==='cm'?n:u==='in'?n*2.54:u==='pt'?n*2.54/72:n*2.54/96}
+$('#escFile').onchange=async()=>{
+  const f=$('#escFile').files[0];if(!f)return;
+  const isSvg=/svg/.test(f.type)||/\.svg$/i.test(f.name);
+  const url=await new Promise(res=>{const r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(f)});
+  const img=new Image();img.onload=async()=>{
+    let wcm=null,hcm=null,nw=img.naturalWidth||1,nh=img.naturalHeight||1;
+    if(isSvg){const txt=await f.text();const doc=new DOMParser().parseFromString(txt,'image/svg+xml').documentElement;
+      wcm=unitToCm(doc.getAttribute('width'));hcm=unitToCm(doc.getAttribute('height'));
+      const vb=(doc.getAttribute('viewBox')||'').split(/[\s,]+/).map(Number);if(vb.length===4&&vb[2]>0){nw=vb[2];nh=vb[3]}
+      if(wcm&&hcm){nh=nw*hcm/wcm}}
+    escImg={url,nw,nh,name:f.name};
+    $('#escW').value=wcm?Math.round(wcm*10)/10:Math.round(nw/300*2.54*10)/10;
+    $('#escWinfo').textContent=wcm?'Medida leída del SVG: '+String(Math.round(wcm*10)/10).replace('.',',')+' cm de ancho. Compruébala.':'La imagen no indica su tamaño: se ha supuesto un escaneo a 300 ppp. Corrige el ancho real si no coincide.';
+    escRender();
+  };
+  img.onerror=()=>toast('No se pudo leer el archivo');img.src=url;
+};
+let escLast=null;
+function escPages(outW,outH){
+  const tw=PW-10,th=PH-18,c=Math.max(1,Math.ceil(outW/tw)),r=Math.max(1,Math.ceil(outH/th)),pages=[];
+  for(let j=0;j<r;j++)for(let i=0;i<c;i++)pages.push({ox:i*tw,oy:j*th,i:i+1,j:j+1,c,r});
+  return pages;
+}
+function escPageSVG(pg,idx,total,outW,outH,mm){
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ${mm?`width="${PW}mm" height="${PH}mm"`:''} viewBox="0 0 ${PW} ${PH}"><rect width="${PW}" height="${PH}" fill="#fff"/>
+  <defs><clipPath id="ec${idx}"><rect x="0" y="0" width="${PW}" height="${PH-8}"/></clipPath></defs>
+  <g clip-path="url(#ec${idx})"><image href="${escImg.url}" xlink:href="${escImg.url}" x="${-pg.ox}" y="${-pg.oy}" width="${outW}" height="${outH}" preserveAspectRatio="none"/></g>
+  ${pg.c*pg.r>1?`<path d="M${PW-10} 0 V${PH-8} M0 ${PH-18} H${PW}" stroke="#d42a5f" stroke-width="0.2" stroke-dasharray="2 1"/>`:''}
+  ${idx===0?`<g transform="translate(${PW-32} ${PH-40})"><rect width="30" height="30" fill="none" stroke="#d42a5f" stroke-width="0.35"/><text x="15" y="16.5" font-size="3" text-anchor="middle" fill="#d42a5f" font-family="Helvetica,Arial">3 × 3 cm</text></g>`:''}
+  <text x="2" y="${PH-2}" font-size="2.5" font-family="Helvetica,Arial">${esc(escImg.name)} escalado · fila ${pg.j}/${pg.r}, columna ${pg.i}/${pg.c}${pg.c*pg.r>1?' · solapa 10 mm':''}</text>
+  <text x="${PW-2}" y="${PH-2}" font-size="2.4" text-anchor="end" fill="#777" font-family="Helvetica,Arial">Hoja ${idx+1}/${total}</text></svg>`;
+}
+function escRender(){
+  const d=curDoll();$('#escDoll').textContent=d.mine?d.cuerpo:d.marca+' '+d.cuerpo;
+  if(!escImg){escLast=null;return}
+  const Rx=$('#escRx').value,Ry=$('#escRy').value;
+  const sx=curM[Rx]/escSrcM[Rx], sy=Ry==='same'?sx:curM[Ry]/escSrcM[Ry];
+  const W=(+$('#escW').value||0)*10;
+  if(!(sx>0&&sy>0&&W>0)){$('#escInfo').innerHTML='<div class="msg">Completa el ancho real y las medidas de origen.</div>';return}
+  const outW=W*sx,outH=W*(escImg.nh/escImg.nw)*sy;
+  const sa=(+$('#escSA').value||0)*10, saX=sa*sx, saY=sa*sy;
+  const pages=escPages(outW,outH);
+  const ratio=Math.max(sx,sy)/Math.min(sx,sy);
+  const f=v=>String(Math.round(v*1000)/1000).replace('.',',');
+  let info=`<div class="msg info">Factor ancho <b>×${f(sx)}</b> · factor alto <b>×${f(sy)}</b> · resultado ${String(Math.round(outW)/10).replace('.',',')} × ${String(Math.round(outH)/10).replace('.',',')} cm en ${pages.length} hoja(s).</div>`;
+  if(sa>0)info+=`<div class="msg">El margen original de ${String(sa/10).replace('.',',')} cm queda en ≈${String(Math.round(saX*10)/10).replace('.',',')} mm. Corta por la <b>línea de costura</b> (no por el borde) y añade tu margen de 4–5 mm alrededor.</div>`;
+  if(ratio>1.25)info+=`<div class="msg">Ancho y alto se escalan muy distinto (×${f(ratio)}): las curvas de sisa, escote y tiro se deforman. Úsalo como base y comprueba con una prueba en tela; revisa que la cabeza y las manos pasan por las aberturas.</div>`;
+  if(Math.min(sx,sy)<0.2)info+=`<div class="msg info">Patrón humano → muñeca: elimina pinzas pequeñas (de menos de 2–3 mm al escalar), simplifica vistas y forros, y cambia cremalleras por velcro.</div>`;
+  $('#escInfo').innerHTML=info;
+  $('#escPages').innerHTML=pages.map((pg,i)=>`<div class="page">${escPageSVG(pg,i,pages.length,outW,outH,false)}</div>`).join('');
+  escLast={pages,outW,outH};
+  $('#escDl').disabled=!canSave();$('#escSvg').disabled=!canSave();
+}
+window.escRefresh=()=>{fillEscDolls();escRender()};
+$('#escDl').onclick=()=>{if(!escLast)return;const {pages,outW,outH}=escLast;
+  save('patron-escalado-'+slug(escImg.name.replace(/\.\w+$/,''))+'.html',`<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Patrón escalado</title><style>@page{size:A4;margin:10mm}body{margin:0}.pg{width:190mm;height:277mm;page-break-after:always;overflow:hidden}.no{position:fixed;top:10px;right:10px;padding:10px 16px;background:#d42a5f;color:#fff;border:0;border-radius:8px}@media print{.no{display:none}}@media screen{body{background:#eee}.pg{background:#fff;margin:10px auto}}</style></head><body><button class="no" onclick="print()">Imprimir (100 %)</button>`+pages.map((pg,i)=>`<div class="pg">${escPageSVG(pg,i,pages.length,outW,outH,true)}</div>`).join('')+'</body></html>')};
+$('#escSvg').onclick=()=>{if(!escLast)return;const {outW,outH}=escLast;
+  save('patron-escalado.svg',`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${outW}mm" height="${outH}mm" viewBox="0 0 ${outW} ${outH}"><image href="${escImg.url}" xlink:href="${escImg.url}" width="${outW}" height="${outH}" preserveAspectRatio="none"/></svg>`)};
+escSetSrc();
+
+// ---------- catálogo visual ----------
+$('#catF').innerHTML+=CATS.map(c=>`<option>${esc(c)}</option>`).join('');
+function renderGallery(){const cf=$('#catF').value;
+  $('#gallery').innerHTML=STYLES.map((st,i)=>[st,i]).filter(([st])=>!cf||st[0]===cf).map(([st,i])=>`<button class="gcard" data-st="${i}" title="Abrir el patrón de ${esc(st[1])}">${ILLUS.draw(st[2],Object.assign({},G[st[2]].opts,st[3]))}<b>${esc(st[1])}</b><span>${esc(st[0])}</span></button>`).join('');
+  $('#gallery').querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{$('#style').value=b.dataset.st;$('#style').onchange();show('gen');try{history.replaceState(null,'','#gen')}catch(e){};window.scrollTo(0,0)});}
+$('#catF').onchange=renderGallery;renderGallery();
+
+// ---------- tabla de medidas ----------
+const COLS=['H','B','W','Hp','N','Sh','BL','R','Ins','Out','Th','Arm','UA','Hand','Hd'];
+const MARCAS=[...new Set(DOLLS.map(d=>d.marca))],ESTILOS=[...new Set(DOLLS.map(d=>d.estilo))].sort();
+$('#fMarca').innerHTML+=MARCAS.map(m=>`<option>${esc(m)}</option>`).join('');
+$('#fEstilo').innerHTML+=ESTILOS.map(m=>`<option>${esc(m)}</option>`).join('');
+let sortK='desde',sortD=1;
+function rows(){const m=$('#fMarca').value,e=$('#fEstilo').value,a=+$('#fAnio').value,t=$('#fTxt').value.toLowerCase();
+  return DOLLS.filter(d=>(!m||d.marca===m)&&(!e||d.estilo===e)&&(!a||(d.desde<=a&&(!d.hasta||d.hasta>=a)))&&(!t||(d.marca+' '+d.linea+' '+d.cuerpo+' '+d.estilo).toLowerCase().includes(t)))
+   .sort((x,y)=>{const vx=COLS.includes(sortK)?x.m[sortK]:x[sortK],vy=COLS.includes(sortK)?y.m[sortK]:y[sortK];return (vx>vy?1:vx<vy?-1:0)*sortD||x.marca.localeCompare(y.marca)})}
+function renderTable(){const R=rows();$('#count').textContent=R.length+' moldes';
+  const lab=Object.fromEntries(FIELDS.map(f=>[f[0],f[1]]));
+  $('#tbl').innerHTML=`<thead><tr><th data-k="marca">Marca</th><th data-k="linea">Línea / molde</th><th data-k="desde">Años</th><th data-k="estilo">Estilo</th><th>Fiabilidad</th>${COLS.map(c=>`<th data-k="${c}" title="${esc(lab[c])}">${esc(lab[c])}</th>`).join('')}<th></th></tr></thead><tbody>`+
+   R.map(d=>`<tr><td>${esc(d.marca)}</td><td><b>${esc(d.linea)}</b><br>${esc(d.cuerpo)}</td><td>${d.desde}–${d.hasta||'hoy'}</td><td>${esc(d.estilo)}</td><td><span class="pill ${d.conf}">${d.conf}</span><div class="small">${esc(d.ref)}</div></td>${COLS.map(c=>`<td class="n ${d.src.includes(c)?'':'e'}">${d.src.includes(c)?'':'≈'}${String(d.m[c]).replace('.',',')}</td>`).join('')}<td><button class="btn sec" data-use="${d.id}" style="padding:4px 9px">Usar</button></td></tr>`).join('')+'</tbody>';
+  $('#tbl').querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortD=sortK===k?-sortD:1;sortK=k;renderTable()});
+  $('#tbl').querySelectorAll('[data-use]').forEach(b=>b.onclick=()=>{$('#doll').value=b.dataset.use;renderMeas();run();show('gen');try{history.replaceState(null,'','#gen')}catch(e){}});
+}
+['fMarca','fEstilo','fAnio','fTxt'].forEach(id=>$('#'+id).oninput=renderTable);
+function csv(){const h=['marca','linea','cuerpo','desde','hasta','estilo','fiabilidad','fuente'].concat(FIELDS.map(f=>f[1]+' (cm)'));
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  return '﻿'+[h.map(q).join(';')].concat(rows().map(d=>[d.marca,d.linea,d.cuerpo,d.desde,d.hasta||'',d.estilo,d.conf,d.ref].concat(FIELDS.map(f=>String(d.m[f[0]]).replace('.',',')+(d.src.includes(f[0])?'':' (est.)'))).map(q).join(';'))).join('\n')}
+$('#dlcsv').onclick=()=>save('medidas-munecas.csv',csv());
+
+// ---------- piezas a medida ----------
+let curCustom=[];
+const CFIELDS={
+ rect:[['ancho','Ancho total (cm)'],['alto','Alto (cm)']],
+ trap:[['ancho_sup','Ancho arriba (cm)'],['ancho_inf','Ancho abajo (cm)'],['alto','Alto (cm)']],
+ sector:[['contorno','Contorno interior de la pieza (cm)'],['largo','Largo (cm)'],['angulo','Ángulo de la pieza (°)']],
+ puntos:[]
+};
+const CNAME={rect:'Rectángulo',trap:'Trapecio',sector:'Arco',puntos:'Por puntos'};
+function newCust(t){const b={tipo:t,nombre:'Pieza '+(curCustom.length+1),cortar:'Cortar 2',doblez:t!=='puntos',bajo:t!=='puntos'};
+  if(t==='rect')Object.assign(b,{ancho:20,alto:8});if(t==='trap')Object.assign(b,{ancho_sup:8,ancho_inf:12,alto:7});
+  if(t==='sector')Object.assign(b,{contorno:4.5,largo:6,angulo:90});if(t==='puntos')Object.assign(b,{puntos:'0,0; 6,0; 7,5; 0,6'});return b}
+function renderCust(){
+  $('#custCount').style.display=curCustom.length?'':'none';$('#custCount').textContent=curCustom.length+' pieza(s)';
+  if(curCustom.length)$('#custombox').open=true;
+  $('#custList').innerHTML=curCustom.map((c,i)=>`<div class="cp" data-i="${i}"><div class="hd"><b>${CNAME[c.tipo]||'Pieza'}</b><button title="Quitar pieza" data-del="${i}">×</button></div>
+   <div class="meas"><div><span>Nombre</span><input type="text" data-f="nombre" maxlength="40" value="${esc(c.nombre||'')}"></div><div><span>Cortar</span><input type="text" data-f="cortar" maxlength="40" value="${esc(c.cortar||'')}"></div>
+   ${(CFIELDS[c.tipo]||[]).map(([k,l])=>`<div><span>${l}</span><input type="number" step="0.1" min="0" data-f="${k}" value="${c[k]??''}"></div>`).join('')}</div>
+   ${c.tipo==='puntos'?`<span class="small">Puntos x,y en cm separados por ";" (contorno sin margen, en orden)</span><textarea rows="2" data-f="puntos">${esc(c.puntos||'')}</textarea>`:''}
+   <div class="bar" style="margin-top:6px"><label class="chk" style="margin:0;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:500"><input type="checkbox" data-f="doblez" ${c.doblez?'checked':''}> ${c.tipo==='puntos'?'Primer lado al doblez':c.tipo==='sector'?'Lado recto al doblez':'Cortar al doblez'}</label>
+   ${c.tipo!=='puntos'?`<label class="chk" style="margin:0;color:var(--ink);text-transform:none;letter-spacing:0;font-weight:500"><input type="checkbox" data-f="bajo" ${c.bajo?'checked':''}> Borde inferior con dobladillo</label>`:''}</div></div>`).join('');
+  $('#custList').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{curCustom.splice(+b.dataset.del,1);renderCust();run()});
+  $('#custList').querySelectorAll('[data-f]').forEach(el=>{const i=+el.closest('.cp').dataset.i,f=el.dataset.f;
+    el.oninput=el.onchange=()=>{curCustom[i][f]=el.type==='checkbox'?el.checked:(el.type==='number'?parseFloat(el.value)||0:el.value);runSoon()}});
+}
+$('#custAdd').onclick=()=>{curCustom.push(newCust($('#custType').value));renderCust();run()};
+
+// ---------- mis diseños ----------
+let MYD=[],COM=[];
+try{MYD=JSON.parse(localStorage.getItem('unikita_disenos')||'[]')}catch(e){}
+function persistD(){try{localStorage.setItem('unikita_disenos',JSON.stringify(MYD))}catch(e){toast('No se pudo guardar en este navegador (¿memoria llena?). Exporta el diseño como archivo.')}}
+const str=(v,n)=>typeof v==='string'?v.slice(0,n):'';
+function cleanDesign(d){
+  if(!d||typeof d!=='object'||d.formato!=='unikita-diseno'||!str(d.nombre,1))return null;
+  const num=v=>{const x=parseFloat(v);return isFinite(x)?x:undefined};
+  const obj=(o,f)=>{const r={};if(o&&typeof o==='object')for(const k of Object.keys(o).slice(0,40))if(/^[a-zA-Z_]{1,20}$/.test(k)){const v=f(o[k]);if(v!==undefined)r[k]=v}return r};
+  const out={formato:'unikita-diseno',version:1,id:str(d.id,40)||('u'+Date.now().toString(36)),nombre:str(d.nombre,60),autora:str(d.autora,40),descripcion:str(d.descripcion,1500),fecha:str(d.fecha,10),
+    base:G[d.base]?d.base:'libre',estilo:STYLES.some(s=>s[1]===d.estilo)?d.estilo:null,
+    opts:obj(d.opts,v=>typeof v==='string'||typeof v==='number'?String(v).slice(0,20):undefined),params:obj(d.params,num),
+    custom:Array.isArray(d.custom)?d.custom.slice(0,30).map(c=>{if(!c||!CNAME[c.tipo])return null;const r={tipo:c.tipo,nombre:str(c.nombre,40)||'Pieza',cortar:str(c.cortar,40)||'Cortar 2',doblez:!!c.doblez,bajo:!!c.bajo,nota:str(c.nota,200)};
+      ['ancho','alto','ancho_sup','ancho_inf','contorno','largo','angulo'].forEach(k=>{const x=num(c[k]);if(x!==undefined)r[k]=x});if(c.tipo==='puntos')r.puntos=str(c.puntos,2000);return r}).filter(Boolean):[],
+    tejido:d.tejido==='punto'?'punto':'plano',holgura:['ajustado','normal','holgado'].includes(d.holgura)?d.holgura:'normal',sa:num(d.sa)||5,hem:num(d.hem)??7,
+    muneca:d.muneca&&d.muneca.m?{nombre:str(d.muneca.nombre,80),m:obj(d.muneca.m,num)}:null,
+    foto:typeof d.foto==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(d.foto)&&d.foto.length<700000?d.foto:''};
+  return out;
+}
+function currentDesign(foto){
+  const d=curDoll();
+  return cleanDesign({formato:'unikita-diseno',id:'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),nombre:$('#disName').value.trim(),autora:$('#disAutor').value.trim(),descripcion:$('#disDesc').value.trim(),fecha:new Date().toISOString().slice(0,10),
+    base:$('#garment').value,estilo:curStyle?curStyle[1]:null,opts:curOpts,params:curP,custom:curCustom,tejido:$('#fabric').value,holgura:$('#fit').value,sa:+$('#sa').value||5,hem:+$('#hem').value,
+    muneca:{nombre:d.mine?d.cuerpo:d.marca+' '+d.cuerpo,m:curM},foto});
+}
+function readFoto(){const f=$('#disFoto').files[0];if(!f)return Promise.resolve('');
+  return new Promise(res=>{const img=new Image();img.onload=()=>{const k=Math.min(1,360/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(img.src);res(c.toDataURL('image/jpeg',0.78))};img.onerror=()=>res('');img.src=URL.createObjectURL(f)})}
+$('#disSave').onclick=async()=>{
+  if(!$('#disName').value.trim()){toast('Ponle un nombre al diseño');$('#disName').focus();return}
+  const d=currentDesign(await readFoto());if(!d)return;
+  MYD.unshift(d);persistD();renderDesigns();toast('Diseño guardado: '+d.nombre);
+  try{localStorage.setItem('unikita_autora',$('#disAutor').value.trim())}catch(e){}
+};
+try{$('#disAutor').value=localStorage.getItem('unikita_autora')||''}catch(e){}
+const enc=o=>'UNIKITA:'+btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+const dec=t=>{t=String(t).trim().replace(/^UNIKITA:/i,'').replace(/\s+/g,'');return JSON.parse(decodeURIComponent(escape(atob(t))))};
+function addImported(list){let n=0;(Array.isArray(list)?list:[list]).forEach(x=>{const d=cleanDesign(x);if(!d)return;const i=MYD.findIndex(y=>y.id===d.id);if(i>=0)MYD[i]=d;else MYD.unshift(d);n++});
+  if(n){persistD();renderDesigns()}toast(n?`${n} diseño(s) importado(s)`:'No se encontró ningún diseño válido');}
+$('#disImpFile').onchange=async()=>{for(const f of $('#disImpFile').files){try{addImported(JSON.parse(await f.text()))}catch(e){toast('Archivo no válido: '+f.name)}}$('#disImpFile').value=''};
+$('#disImpBtn').onclick=()=>{try{addImported(dec($('#disImpCode').value));$('#disImpCode').value=''}catch(e){toast('El código no es válido o está incompleto')}};
+$('#disExpAll').onclick=()=>{const map=new Map();COM.concat(MYD).forEach(d=>map.set(d.id,d));save('disenos.json',JSON.stringify([...map.values()],null,1))};
+async function shareDesign(d){
+  const name=slug(d.nombre)+'.unikita.json',txt=JSON.stringify(d);
+  try{if(!IN_CLAUDE&&navigator.canShare){const file=new File([txt],name,{type:'application/json'});if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:d.nombre,text:'Diseño Unikita: '+d.nombre});return}}}catch(e){if(e&&e.name==='AbortError')return}
+  save(name,txt);
+}
+async function copyCode(d){const o=Object.assign({},d,{foto:''});try{await navigator.clipboard.writeText(enc(o));toast('Código copiado: pégalo en WhatsApp o en un correo')}catch(e){$('#disImpCode').value=enc(o);toast('No se pudo copiar: el código está en el cuadro "pega un código"')}}
+function applyDesign(d){
+  const adapt=$('#disAdapt').checked,gk=G[d.base]?d.base:'libre';
+  $('#garment').value=gk;const si=d.estilo?STYLES.findIndex(st=>st[1]===d.estilo):-1;
+  curStyle=si>=0?STYLES[si]:null;$('#style').value=si>=0?String(si):'';
+  renderOpts(d.opts||{});
+  $('#fabric').value=d.tejido||G[gk].fab;$('#fit').value=d.holgura||G[gk].fit;$('#sa').value=d.sa||5;$('#hem').value=d.hem??7;
+  const dm=d.muneca&&d.muneca.m;let sx=1,sy=1;
+  if(dm&&dm.B&&dm.H){if(adapt){sx=curM.B/dm.B;sy=curM.H/dm.H}else{Object.keys(dm).forEach(k=>{if(k in curM)curM[k]=dm[k]});document.querySelectorAll('#meas input').forEach(i=>i.value=curM[i.dataset.m])}}
+  const r1=v=>Math.round(v*10)/10;
+  curP={};Object.entries(d.params||{}).forEach(([k,v])=>{curP[k]=k==='vuelo'?v:r1(v*(/ancho|escote|solapa|Copa|anchoBajo/.test(k)?sx:sy))});
+  curCustom=(d.custom||[]).map(c=>{const n=Object.assign({},c);
+    ['ancho','ancho_sup','ancho_inf','contorno'].forEach(k=>{if(n[k]!=null)n[k]=r1(n[k]*sx)});['alto','largo'].forEach(k=>{if(n[k]!=null)n[k]=r1(n[k]*sy)});
+    if(n.tipo==='puntos'&&(sx!==1||sy!==1))n.puntos=String(n.puntos).split(';').map(t=>{const q=t.trim().split(/[\s,]+/).map(parseFloat);return q.length>=2&&isFinite(q[0])?r1(q[0]*sx)+','+r1(q[1]*sy):''}).filter(Boolean).join('; ');
+    return n});
+  lastSig='';renderCust();run();show('gen');try{history.replaceState(null,'','#gen')}catch(e){}window.scrollTo(0,0);
+  toast('Abierto: '+d.nombre+(dm&&adapt&&(Math.abs(sx-1)>0.02||Math.abs(sy-1)>0.02)?' (adaptado a esta muñeca)':''));
+}
+function dcard(d,mine,i){
+  const ph=d.foto?`<img src="${d.foto}" alt="">`:ILLUS.draw(d.base==='libre'?'falda':d.base,Object.assign({},(G[d.base]||{}).opts,d.opts));
+  return `<div class="dcard"><div class="ph">${ph}</div><b>${esc(d.nombre)}</b><span>${esc(d.autora||'Sin autora')}${d.muneca?' · '+esc(d.muneca.nombre):''}</span>
+  <div class="acts"><button class="btn" data-a="open" data-k="${mine?'m':'c'}${i}">Abrir</button>${mine?`<button class="btn sec" data-a="share" data-k="m${i}">Enviar</button><button class="btn sec" data-a="code" data-k="m${i}">Código</button><button class="btn sec" data-a="del" data-k="m${i}">Borrar</button>`:`<button class="btn sec" data-a="keep" data-k="c${i}">Guardar copia</button>`}</div></div>`;
+}
+function renderDesigns(){
+  $('#disMine').innerHTML=MYD.length?MYD.map((d,i)=>dcard(d,true,i)).join(''):'<p class="small">Aún no hay diseños. Prepara uno en el Generador y guárdalo aquí, o importa los que te envíen.</p>';
+  $('#disCom').innerHTML=COM.length?COM.map((d,i)=>dcard(d,false,i)).join(''):'<p class="small">El catálogo común está vacío o no se pudo cargar (necesita la app publicada y conexión la primera vez).</p>';
+  document.querySelectorAll('#v-dis [data-a]').forEach(b=>b.onclick=()=>{const src=b.dataset.k[0]==='m'?MYD:COM,i=+b.dataset.k.slice(1),d=src[i];if(!d)return;
+    if(b.dataset.a==='open')applyDesign(d);if(b.dataset.a==='share')shareDesign(d);if(b.dataset.a==='code')copyCode(d);
+    if(b.dataset.a==='keep'){addImported(Object.assign({},d,{id:d.id+'-c'}))}
+    if(b.dataset.a==='del'){if(b.dataset.sure){MYD.splice(i,1);persistD();renderDesigns()}else{b.dataset.sure=1;b.textContent='¿Seguro?';setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent='Borrar'}},3000)}}});
+}
+fetch('disenos.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{COM=(Array.isArray(a)?a:[]).map(cleanDesign).filter(Boolean);renderDesigns()}).catch(()=>renderDesigns());
+renderDesigns();renderCust();
+
+// ---------- PWA: instalación y actualizaciones ----------
+const APP_VERSION='1.0.0';
+$('#verTxt').textContent='Versión instalada: '+APP_VERSION+'.';
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('#installBtn').style.display='inline-flex'});
+$('#installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;$('#installBtn').style.display='none'};
+window.addEventListener('appinstalled',()=>{$('#installBtn').style.display='none';toast('¡Unikita instalada!')});
+let swReg=null;
+function showUpd(w){$('#updBar').style.display='flex';$('#updBtn').onclick=()=>{w.postMessage('skipWaiting');$('#updBtn').textContent='Actualizando…'}}
+if(!IN_CLAUDE&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+  let reloading=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(reloading)return;reloading=true;location.reload()});
+  navigator.serviceWorker.register('sw.js').then(reg=>{swReg=reg;
+    if(reg.waiting&&navigator.serviceWorker.controller)showUpd(reg.waiting);
+    reg.addEventListener('updatefound',()=>{const w=reg.installing;if(!w)return;w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)showUpd(w)})});
+    setInterval(()=>reg.update().catch(()=>{}),30*60*1000);
+  }).catch(()=>{});
+}
+$('#chkUpd').onclick=()=>{if(!swReg){toast(IN_CLAUDE?'Las actualizaciones automáticas funcionan en la app publicada e instalada.':'Actualizaciones no disponibles en este navegador.');return}
+  swReg.update().then(()=>{if(!swReg.waiting&&!swReg.installing)toast('Tienes la última versión ('+APP_VERSION+')')}).catch(()=>toast('Sin conexión: inténtalo más tarde'))};
+
+renderOpts();renderMeas();run();renderTable();
+// capacidad de descarga
+if(!IN_CLAUDE){['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).disabled=false)}
+if(window.claude&&window.claude.use){window.claude.use('downloads').then(d=>{DL=d;if(d){['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).disabled=false);if(escLast){$('#escDl').disabled=false;$('#escSvg').disabled=false}}else{['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).title='No disponible en esta vista')}}).catch(()=>{})}
+})();
+</script>
+</body>
+</html>

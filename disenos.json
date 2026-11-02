@@ -1,0 +1,19 @@
+[
+ {
+  "formato": "unikita-diseno",
+  "version": 1,
+  "id": "ejemplo-falda-volante",
+  "nombre": "Ejemplo: falda evasé con volante",
+  "autora": "Unikita (ejemplo)",
+  "descripcion": "Diseño de ejemplo del catálogo común: falda evasé corta más una pieza a medida (volante rectangular de 30 × 2,5 cm) que se frunce y se cose al bajo.",
+  "fecha": "2026-11-02",
+  "base": "falda",
+  "estilo": "Minifalda evasé",
+  "opts": { "tipoFalda": "A", "largo": "mini" },
+  "params": {},
+  "custom": [ { "tipo": "rect", "nombre": "Volante del bajo", "cortar": "Cortar 1", "doblez": false, "bajo": true, "ancho": 30, "alto": 2.5, "nota": "Frunce hasta el contorno del bajo y cóselo derecho con derecho." } ],
+  "tejido": "plano", "holgura": "normal", "sa": 5, "hem": 7,
+  "muneca": { "nombre": "Barbie Original (Regular)", "m": { "H": 29, "B": 12.7, "W": 9.1, "Hp": 13.2 } },
+  "foto": ""
+ }
+]

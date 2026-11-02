@@ -1,0 +1,17 @@
+{
+  "name": "Unikita Dolls Seamstress",
+  "short_name": "Unikita",
+  "description": "Patrones de costura a medida para muñecas: Barbie, Monster High, Bratz, Defa Lucy y las tuyas.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff8f5",
+  "theme_color": "#c62a1f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
