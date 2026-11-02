@@ -33,6 +33,10 @@ nav button{border:1.5px solid var(--line);background:#fff;padding:8px 15px;font:
 nav button:hover{border-color:var(--pink);color:var(--rose)}
 nav button.on{color:#fff;background:linear-gradient(135deg,var(--cherry),var(--pink));border-color:transparent;box-shadow:0 3px 10px rgba(240,65,143,.35)}
 main{max-width:1320px;margin:auto;padding:20px 24px 60px}
+html.guest #tabs [data-v=opc],html.guest #tabs [data-v=algo],html.guest #v-opc,html.guest #v-algo,html.guest .owner-only{display:none!important}
+#guestPill{display:none;margin-top:8px;font-size:13px}html.guest #guestPill{display:inline-flex;gap:8px;align-items:center}
+#guestPill b{background:var(--cyan2);color:#0b5a63;padding:3px 10px;border-radius:99px}#guestPill button{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit}
+.invite{border:2px dashed var(--pink);border-radius:14px;padding:12px;margin-top:10px;background:#fff7fa}.invite code{font-size:20px;letter-spacing:.08em;color:var(--cherry);font-weight:700}
 html.lk body>header,html.lk body>nav,html.lk body>main,html.lk #updBar{display:none!important}
 #gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:radial-gradient(circle,rgba(240,65,143,.12) 1.6px,transparent 1.8px) 0 0/22px 22px,linear-gradient(140deg,#fff3f1,#e9fbfc)}
 .gbox{width:min(360px,100%);background:#fff;border-radius:24px;padding:28px 24px 22px;text-align:center;box-shadow:0 12px 40px rgba(62,10,18,.15);border:3px solid #fff;outline:2px solid var(--cyan)}
@@ -54,7 +58,7 @@ html.lk body>header,html.lk body>nav,html.lk body>main,html.lk #updBar{display:n
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(62,10,18,.05)}
 .card+.card{margin-top:14px}
 label{display:block;font-size:12.5px;font-weight:700;color:#0f7f8c;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.03em}
-select,input[type=number],input[type=text]{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+select,input[type=number],input[type=text],input[type=password]{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .meas{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;margin-top:6px}
 .meas div{display:flex;flex-direction:column}
@@ -117,7 +121,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
 <script src="gate.js"></script>
 <header><div class="in">
   <div class="brand"><img src="logo.png" alt="Logotipo Unikita Dolls"><div><h1>Unikita Dolls <small>Seamstress</small></h1>
-  <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 77 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button></div></div>
+  <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 77 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button><div id="guestPill"><b id="guestName">Invitada</b><button id="guestOut">Salir</button></div></div></div>
 </div></header>
 <nav id="tabs">
   <button data-v="gen" class="on">Generador</button>
@@ -236,7 +240,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
     <div class="bar" style="margin-top:8px"><button class="btn sec" id="disImpBtn">Importar código</button></div>
     <label style="display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;color:var(--ink);font-weight:500"><input type="checkbox" id="disAdapt" checked style="width:auto"> Al abrir, adaptar a la muñeca elegida en el Generador</label>
    </div>
-   <div class="card">
+   <div class="card owner-only">
     <h3 style="margin-top:0">Catálogo común</h3>
     <p class="small">Para que todas tengan los mismos diseños: importa los que te envíen, descarga <code>disenos.json</code>, sustituye ese archivo en la carpeta de la app y vuelve a subirla (ver "Instalar y actualizar"). Al abrir la app, todas verán los nuevos diseños.</p>
     <button class="btn sec" id="disExpAll">Descargar disenos.json (catálogo común + mis diseños)</button>
@@ -485,11 +489,19 @@ Prenda  { bloques usados, opciones, pasos de montaje }</pre>
 <li><b>Diseños de las compañeras:</b> cada una guarda su diseño en "Mis diseños" y te lo envía con "Enviar" (archivo) o "Código" (texto para WhatsApp). Tú lo importas, pulsas "Descargar disenos.json", sustituyes ese archivo en la carpeta y la vuelves a subir: no hace falta cambiar la versión, el catálogo común se descarga siempre de nuevo.</li></ol>
 <div class="bar"><button class="btn sec" id="chkUpd">Buscar actualizaciones</button></div>
 <p class="small">Los diseños y las muñecas guardadas viven en cada dispositivo. Para no perderlos al cambiar de móvil, expórtalos (Enviar o Descargar disenos.json).</p></div>
-<h2>Contraseña de acceso</h2>
-<div class="card"><p>La app pide contraseña si en su carpeta existe el archivo <code>acceso.json</code>. Ese archivo no contiene la contraseña, solo una huella cifrada (PBKDF2-SHA256). Para cambiarla: escribe la nueva aquí, descarga <code>acceso.json</code>, sustitúyelo en GitHub y sube la versión. Al cambiarla, todas tendrán que escribir la nueva una vez.</p>
-<p class="small">Es una barrera de acceso para la app. Como el repositorio es público, el código sigue siendo visible en GitHub: no guardes ahí nada confidencial.</p>
-<div class="row2" style="max-width:520px"><div><label>Nueva contraseña</label><input type="password" id="npw1" autocomplete="new-password"></div><div><label>Repítela</label><input type="password" id="npw2" autocomplete="new-password"></div></div>
-<div class="bar" style="margin-top:10px"><button class="btn sec" id="npwBtn">Descargar acceso.json</button><button class="btn sec" id="lockBtn">Cerrar sesión en este dispositivo</button></div></div>
+<h2>Acceso: contraseña e invitaciones</h2>
+<div class="card"><p>El archivo <code>acceso.json</code> guarda <b>tu contraseña de propietaria</b> y los <b>códigos de invitación</b> de tus amigas, siempre como huellas cifradas: ni la contraseña ni los códigos se pueden leer en él. Con un código se entra en <b>modo invitada</b>: sin "Opciones del proyecto", sin "El algoritmo" y sin las herramientas de administración.</p>
+<p class="small">Cómo se usa: crea las invitaciones (o cambia tu contraseña), pulsa <b>Descargar acceso.json</b> y súbelo a GitHub sustituyendo el anterior. Los cambios funcionan en 1–2 minutos. Es una barrera de acceso: como el repositorio es público, el código de la app se puede ver en GitHub.</p>
+<div id="accState" class="msg info">Cargando acceso.json…</div>
+<h3>Invitaciones</h3>
+<div class="tablewrap" style="max-height:300px"><table id="accTbl"></table></div>
+<div class="row2" style="max-width:620px;margin-top:10px"><div><label>Nombre de tu amiga</label><input type="text" id="invName" maxlength="30" placeholder="Ej.: Laura"></div><div><label>Validez</label><select id="invDays"><option value="7">7 días</option><option value="30" selected>30 días</option><option value="90">90 días</option><option value="0">Sin caducidad</option></select></div></div>
+<div class="bar" style="margin-top:10px"><button class="btn" id="invBtn">Crear código de invitación</button></div>
+<div id="invOut"></div>
+<h3>Tu contraseña de propietaria</h3>
+<div class="row2" style="max-width:620px"><div><label>Nueva contraseña</label><input type="password" id="npw1" autocomplete="new-password"></div><div><label>Repítela</label><input type="password" id="npw2" autocomplete="new-password"></div></div>
+<div class="bar" style="margin-top:10px"><button class="btn sec" id="npwBtn">Cambiar contraseña</button></div>
+<div class="bar" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line)"><button class="btn" id="accDl" disabled>Descargar acceso.json</button><span class="small" id="accDirty"></span><button class="btn sec" id="lockBtn">Cerrar sesión en este dispositivo</button></div></div>
 <h2>Opciones para el proyecto (de más a menos recomendada)</h2>
 <div class="card"><span class="rank">1</span><h3 style="margin-top:0">App web paramétrica propia (esta) → app instalable sin conexión (PWA)</h3>
 <p>JavaScript + SVG en el navegador, sin servidor. Funciona en móvil, tableta y PC; imprime a escala real; la base de medidas es un archivo JSON fácil de ampliar. Siguiente paso: convertirla en PWA instalable, generar PDF por capas por talla, calibración de impresora y guardar en la nube las muñecas de cada usuaria.</p>
@@ -545,7 +557,7 @@ const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';clea
 let DL=null;
 // ---------- tabs ----------
 const VIEWS=['gen','cat','dis','esc','med','guia','mat','algo','opc'];
-function show(v){if(!VIEWS.includes(v))v='gen';document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));}
+function show(v){if(!VIEWS.includes(v)||(document.documentElement.classList.contains('guest')&&(v==='opc'||v==='algo')))v='gen';document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));}
 document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{show(b.dataset.v);try{history.replaceState(null,'','#'+b.dataset.v)}catch(e){location.hash=b.dataset.v}});
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
@@ -685,7 +697,7 @@ function header(doll,gname,S){
   <g transform="translate(0 23)" font-size="2.2"><line x1="0" y1="2" x2="10" y2="2" stroke="#111" stroke-width="0.35"/><text x="12" y="2.8">corte</text>
   <line x1="26" y1="2" x2="36" y2="2" stroke="#888" stroke-width="0.25" stroke-dasharray="1.2 0.8"/><text x="38" y="2.8">costura</text>
   <line x1="56" y1="2" x2="66" y2="2" stroke="#111" stroke-width="0.6" stroke-dasharray="3 1 0.6 1"/><text x="68" y="2.8">doblez</text>
-  <line x1="86" y1="2" x2="96" y2="2" stroke="#d42a5f" stroke-width="0.3"/><text x="98" y="2.8">pinza / marca</text><text x="122" y="2.8" fill="#0f6f7a">12,4 cm = largo de la línea de costura (sin margen)</text></g>
+  <line x1="86" y1="2" x2="96" y2="2" stroke="#d42a5f" stroke-width="0.3"/><text x="98" y="2.8">pinza / marca</text><text x="0" y="9" fill="#0f6f7a">12,4 cm = largo de la línea de costura (sin margen) · ≈ = línea curva</text></g>
   </g>`;
 }
 function testSquare(){return `<g transform="translate(${PW-50} 0)"><rect x="0" y="0" width="50" height="50" fill="none" stroke="#d42a5f" stroke-width="0.4"/><text x="25" y="27" font-size="4" text-anchor="middle" fill="#d42a5f" font-family="Helvetica,Arial">5 × 5 cm</text></g>`}
@@ -982,11 +994,47 @@ fetch('disenos.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{COM=
 renderDesigns();renderCust();
 
 // ---------- PWA: instalación y actualizaciones ----------
-const APP_VERSION='1.2.0';
+const APP_VERSION='1.3.0';
+// ---------- acceso: contraseña e invitaciones ----------
+const APP_URL='https://linuxielaxljhonn.github.io/unikita-dolls-seamstress/';
+let ACC=null,accDirty=0;
+const fmtD=d=>d?d.split('-').reverse().join('/'):'—';
+function renderAcc(){
+  const ok=!!(ACC&&ACC.users.length);
+  $('#accState').innerHTML=ok?`acceso.json tiene <b>${ACC.users.filter(u=>u.rol==='propietaria').length}</b> contraseña(s) de propietaria y <b>${ACC.users.filter(u=>u.rol!=='propietaria').length}</b> invitación(es).`:'Esta app todavía no tiene <code>acceso.json</code> (entra sin contraseña). Crea primero tu contraseña de propietaria abajo.';
+  const t=UGATE.today();
+  $('#accTbl').innerHTML='<thead><tr><th>Nombre</th><th>Tipo</th><th>Creada</th><th>Caduca</th><th></th></tr></thead><tbody>'+(ok?ACC.users.map((u,i)=>`<tr><td>${esc(u.nombre||'—')}</td><td>${u.rol==='propietaria'?'Propietaria':'Invitada'}</td><td>${fmtD(u.creada)}</td><td>${u.caduca?(t>u.caduca?'<span class="pill estimado">caducada '+fmtD(u.caduca)+'</span>':fmtD(u.caduca)):'Sin caducidad'}</td><td>${u.rol==='propietaria'?'':`<button class="btn sec" data-rev="${i}" style="padding:3px 9px">Anular</button>`}</td></tr>`).join(''):'<tr><td colspan="5" class="small">Sin invitaciones.</td></tr>')+'</tbody>';
+  $('#accTbl').querySelectorAll('[data-rev]').forEach(b=>b.onclick=()=>{const u=ACC.users[+b.dataset.rev];ACC.users.splice(+b.dataset.rev,1);markDirty();toast('Invitación de '+(u.nombre||'')+' anulada: descarga y sube acceso.json')});
+  $('#invBtn').disabled=!ok;
+  $('#accDl').disabled=!accDirty||!canSave();$('#accDirty').textContent=accDirty?accDirty+' cambio(s) sin subir a GitHub':'';
+}
+function markDirty(){accDirty++;renderAcc()}
+async function loadAcc(){try{const r=await fetch('acceso.json',{cache:'no-store'});ACC=r.ok?UGATE.normalize(await r.json()):null}catch(e){ACC=null}renderAcc()}
+$('#invBtn').onclick=async()=>{
+  const nombre=$('#invName').value.trim()||'Amiga',days=+$('#invDays').value;
+  if(!ACC){toast('Crea primero tu contraseña de propietaria');return}
+  $('#invBtn').disabled=true;
+  const code=UGATE.genCode(),hash=await UGATE.derive(code,ACC.salt,ACC.iter);
+  const cad=days?new Date(Date.now()+days*864e5).toISOString().slice(0,10):'';
+  ACC.users.push({hash,rol:'invitada',nombre,creada:UGATE.today(),caduca:cad});markDirty();
+  const msg=`¡Hola ${nombre}! Te invito a probar Unikita Dolls Seamstress, mi app de patrones para muñecas 🧵\n${APP_URL}\nTu código de invitación: ${code}${cad?'\n(válido hasta el '+fmtD(cad)+')':''}`;
+  $('#invOut').innerHTML=`<div class="invite"><div class="small">Código para <b>${esc(nombre)}</b> — apúntalo ahora: no se vuelve a mostrar.</div><code>${code}</code><textarea rows="4" style="margin-top:8px" readonly>${esc(msg)}</textarea><div class="bar" style="margin-top:6px"><button class="btn sec" id="invCopy">Copiar mensaje</button><span class="small">Funciona cuando subas el nuevo acceso.json a GitHub.</span></div></div>`;
+  $('#invCopy').onclick=async()=>{try{await navigator.clipboard.writeText(msg);toast('Mensaje copiado')}catch(e){toast('Selecciona el texto y cópialo')}};
+  $('#invName').value='';$('#invBtn').disabled=false;
+};
 $('#npwBtn').onclick=async()=>{const a=$('#npw1').value,b=$('#npw2').value;
   if(a.length<8){toast('Usa al menos 8 caracteres (mejor 10 o más)');return}if(a!==b){toast('Las dos contraseñas no coinciden');return}
   if(!window.UGATE||!crypto.subtle){toast('Este navegador no puede generar la huella (necesita HTTPS)');return}
-  const cfg=await UGATE.makeAccess(a);$('#npw1').value=$('#npw2').value='';save('acceso.json',JSON.stringify(cfg))};
+  if(!ACC)ACC=await UGATE.newConfig(a);
+  else{const h=await UGATE.derive(a,ACC.salt,ACC.iter);ACC.users=ACC.users.filter(u=>u.rol!=='propietaria');ACC.users.unshift({hash:h,rol:'propietaria',nombre:'Propietaria',creada:UGATE.today()})}
+  $('#npw1').value=$('#npw2').value='';markDirty();toast('Contraseña cambiada: descarga y sube acceso.json');};
+$('#accDl').onclick=()=>{if(!ACC)return;save('acceso.json',JSON.stringify(ACC));accDirty=0;renderAcc()};
+function applyRole(){const g=document.documentElement.classList.contains('guest');
+  if(g){const u=UGATE.user||{};$('#guestName').textContent='Invitada: '+(u.nombre||'')+(u.caduca?' · hasta '+fmtD(u.caduca):'');if(['opc','algo'].includes(location.hash.slice(1)))show('gen');}
+  else loadAcc();}
+document.addEventListener('unikita-acceso',applyRole);
+if(!document.documentElement.classList.contains('lk'))applyRole();
+$('#guestOut').onclick=()=>UGATE.lock();
 $('#lockBtn').onclick=()=>{if(window.UGATE)UGATE.lock()};
 $('#verTxt').textContent='Versión instalada: '+APP_VERSION+'.';
 let deferredPrompt=null;
