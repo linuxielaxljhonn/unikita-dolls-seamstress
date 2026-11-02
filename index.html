@@ -709,7 +709,9 @@ function run(){
   const dn=(d.mine?d.cuerpo:d.marca+' '+d.cuerpo);
   const pages=pack(r.pieces,PW,PH,HEAD);
   const svgs=pages.map((pg,i)=>pageSVG(pg,i,pages.length,dn,gTitle(gk),S,false));
-  $('#pages').innerHTML=svgs.map(s=>`<div class="page">${s}</div>`).join('');
+  $('#pages').innerHTML=r.pieces.length?svgs.map(s=>`<div class="page">${s}</div>`).join(''):'<div class="card msg info" style="max-width:560px">Este diseño aún no tiene piezas. Abre <b>Piezas a medida</b> (columna izquierda) y pulsa <b>+ Añadir pieza</b>, o elige un estilo del catálogo.</div>';
+  if(!r.pieces.length)$('#custombox').open=true;
+  try{localStorage.setItem('unikita_ultimo',JSON.stringify({g:gk,st:$('#style').value,doll:$('#doll').value}))}catch(e){}
   const flat=packFlat(r.pieces,290);
   $('#summary').innerHTML=`<b>${r.pieces.length}</b> piezas · <b>${pages.length}</b> hoja(s) A4 · tela aprox. <b>29 × ${Math.ceil(flat.h/10)} cm</b> (más si corta 2 o al doblez)`;
   $('#steps').innerHTML=r.steps.map(s=>`<li>${esc(s)}</li>`).join('');
@@ -958,7 +960,7 @@ fetch('disenos.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{COM=
 renderDesigns();renderCust();
 
 // ---------- PWA: instalación y actualizaciones ----------
-const APP_VERSION='1.1.0';
+const APP_VERSION='1.1.1';
 $('#npwBtn').onclick=async()=>{const a=$('#npw1').value,b=$('#npw2').value;
   if(a.length<8){toast('Usa al menos 8 caracteres (mejor 10 o más)');return}if(a!==b){toast('Las dos contraseñas no coinciden');return}
   if(!window.UGATE||!crypto.subtle){toast('Este navegador no puede generar la huella (necesita HTTPS)');return}
@@ -983,7 +985,12 @@ if(!IN_CLAUDE&&'serviceWorker' in navigator&&(location.protocol==='https:'||loca
 $('#chkUpd').onclick=()=>{if(!swReg){toast(IN_CLAUDE?'Las actualizaciones automáticas funcionan en la app publicada e instalada.':'Actualizaciones no disponibles en este navegador.');return}
   swReg.update().then(()=>{if(!swReg.waiting&&!swReg.installing)toast('Tienes la última versión ('+APP_VERSION+')')}).catch(()=>toast('Sin conexión: inténtalo más tarde'))};
 
-renderOpts();renderMeas();run();renderTable();
+// al abrir: recuperar lo último que se usó, o empezar con una falda
+(function(){let u=null;try{u=JSON.parse(localStorage.getItem('unikita_ultimo')||'null')}catch(e){}
+  if(u&&u.doll&&allDolls().some(d=>d.id===u.doll))$('#doll').value=u.doll;
+  if(u&&u.st!==''&&u.st!=null&&STYLES[+u.st]){curStyle=STYLES[+u.st];$('#style').value=u.st;$('#garment').value=curStyle[2];renderOpts(curStyle[3]);return}
+  $('#garment').value=(u&&G[u.g]&&u.g!=='libre')?u.g:'falda';renderOpts();})();
+renderMeas();run();renderTable();
 // capacidad de descarga
 if(!IN_CLAUDE){['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).disabled=false)}
 if(window.claude&&window.claude.use){window.claude.use('downloads').then(d=>{DL=d;if(d){['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).disabled=false);if(escLast){$('#escDl').disabled=false;$('#escSvg').disabled=false}}else{['dlhtml','dlsvg','dlcsv'].forEach(id=>$('#'+id).title='No disponible en esta vista')}}).catch(()=>{})}
