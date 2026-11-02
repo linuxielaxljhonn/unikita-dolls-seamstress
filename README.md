@@ -60,3 +60,10 @@ Cuando quieras pasar a FreeSewing, cada prenda de `engine.js` equivale a un *des
 Este repositorio se publica con GitHub Pages (rama `main`, carpeta raíz). Para actualizar:
 **Add file → Upload files**, sube los archivos cambiados y pulsa *Commit changes*. En 1–2 minutos estará en línea.
 Si cambias el código, sube antes `VERSION` en `sw.js` y `APP_VERSION` en `index.html`.
+
+## Contraseña de acceso
+
+La app pide contraseña porque existe el archivo `acceso.json`. Ese archivo guarda solo una huella cifrada (PBKDF2-SHA256), nunca la contraseña.
+- **Cambiarla:** en la app, ve a *Opciones del proyecto → Contraseña de acceso*, escribe la nueva y pulsa *Descargar acceso.json*. Sube ese archivo aquí, sustituyendo el anterior. Todas tendrán que escribir la nueva una vez.
+- **Quitarla:** borra `acceso.json` del repositorio.
+- **Límite:** es una barrera de acceso a la app. El repositorio es público, así que el código sigue visible en GitHub.

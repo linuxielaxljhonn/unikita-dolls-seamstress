@@ -1,8 +1,8 @@
 /* Service worker de Unikita Dolls Seamstress.
    PARA PUBLICAR UNA VERSIÓN NUEVA: cambia VERSION (y APP_VERSION en index.html) y vuelve a subir la carpeta. */
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const CACHE = 'unikita-' + VERSION;
-const SHELL = ['./', 'index.html', 'data.js', 'engine.js', 'illustrate.js', 'logo.png', 'manifest.webmanifest',
+const SHELL = ['./', 'index.html', 'data.js', 'engine.js', 'illustrate.js', 'gate.js', 'logo.png', 'manifest.webmanifest',
   'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -18,9 +18,9 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   // catálogo común: siempre intenta la red primero (para recibir diseños nuevos)
-  if (url.origin === location.origin && url.pathname.endsWith('disenos.json')) {
+  if (url.origin === location.origin && (url.pathname.endsWith('disenos.json') || url.pathname.endsWith('acceso.json'))) {
     e.respondWith(fetch(req, { cache: 'no-store' }).then(r => { const c = r.clone(); caches.open('unikita-runtime').then(x => x.put(req, c)); return r; })
-      .catch(() => caches.match(req).then(r => r || new Response('[]', { headers: { 'Content-Type': 'application/json' } }))));
+      .catch(() => caches.match(req).then(r => r || new Response(url.pathname.endsWith('acceso.json') ? 'null' : '[]', { headers: { 'Content-Type': 'application/json' } }))));
     return;
   }
   // fuentes de Google: caché y actualización en segundo plano

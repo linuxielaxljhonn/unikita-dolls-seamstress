@@ -33,6 +33,21 @@ nav button{border:1.5px solid var(--line);background:#fff;padding:8px 15px;font:
 nav button:hover{border-color:var(--pink);color:var(--rose)}
 nav button.on{color:#fff;background:linear-gradient(135deg,var(--cherry),var(--pink));border-color:transparent;box-shadow:0 3px 10px rgba(240,65,143,.35)}
 main{max-width:1320px;margin:auto;padding:20px 24px 60px}
+html.lk body>header,html.lk body>nav,html.lk body>main,html.lk #updBar{display:none!important}
+#gate{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:radial-gradient(circle,rgba(240,65,143,.12) 1.6px,transparent 1.8px) 0 0/22px 22px,linear-gradient(140deg,#fff3f1,#e9fbfc)}
+.gbox{width:min(360px,100%);background:#fff;border-radius:24px;padding:28px 24px 22px;text-align:center;box-shadow:0 12px 40px rgba(62,10,18,.15);border:3px solid #fff;outline:2px solid var(--cyan)}
+.gbox img{width:120px;height:120px;border-radius:26px;box-shadow:0 6px 18px rgba(198,42,31,.25)}
+.gbox h1{font-family:Pacifico,cursive;font-weight:400;color:var(--cherry);font-size:30px;margin:12px 0 2px}
+.gbox h1 small{display:block;font-family:"DM Sans",sans-serif;font-weight:700;font-size:12px;letter-spacing:.32em;color:#0f7f8c;text-transform:uppercase;margin-top:4px}
+.gbox p{color:var(--muted);margin:6px 0 14px;font-size:14px}
+.gbox input[type=password]{width:100%;padding:11px 14px;border:2px solid var(--line);border-radius:12px;font:inherit;font-size:16px;text-align:center}
+.gbox input[type=password]:focus{outline:none;border-color:var(--pink)}
+.gbox .grem{display:flex;gap:6px;justify-content:center;align-items:center;font-size:13px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:500;margin:10px 0}
+.gbox .grem input{width:auto}
+.gbox button{width:100%;padding:11px;border:0;border-radius:99px;font:inherit;font-weight:700;font-size:16px;color:#fff;background:linear-gradient(135deg,var(--cherry),var(--pink));cursor:pointer;box-shadow:0 4px 12px rgba(212,42,95,.3)}
+.gbox button:disabled{opacity:.6}
+#gmsg{min-height:20px;margin-top:8px;color:var(--cherry);font-weight:700;font-size:14px}
+.shake{animation:shk .35s}@keyframes shk{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 .view{display:none}.view.on{display:block}
 .gen{display:grid;grid-template-columns:360px 1fr;gap:22px;align-items:start}
 @media(max-width:900px){.gen{grid-template-columns:1fr}}
@@ -99,6 +114,7 @@ textarea{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radiu
 </style>
 </head>
 <body>
+<script src="gate.js"></script>
 <header><div class="in">
   <div class="brand"><img src="logo.png" alt="Logotipo Unikita Dolls"><div><h1>Unikita Dolls <small>Seamstress</small></h1>
   <p>Generador paramétrico de patrones a escala real para Barbie, Monster High, Bratz, Defa Lucy y cualquier muñeca que midas tú: 77 estilos, modo manual por prenda y escalador de patrones de tamaño humano. Descarga las hojas listas para imprimir al 100 %.</p><button class="btn" id="installBtn">Instalar la app</button></div></div>
@@ -468,6 +484,11 @@ Prenda  { bloques usados, opciones, pasos de montaje }</pre>
 <li><b>Diseños de las compañeras:</b> cada una guarda su diseño en "Mis diseños" y te lo envía con "Enviar" (archivo) o "Código" (texto para WhatsApp). Tú lo importas, pulsas "Descargar disenos.json", sustituyes ese archivo en la carpeta y la vuelves a subir: no hace falta cambiar la versión, el catálogo común se descarga siempre de nuevo.</li></ol>
 <div class="bar"><button class="btn sec" id="chkUpd">Buscar actualizaciones</button></div>
 <p class="small">Los diseños y las muñecas guardadas viven en cada dispositivo. Para no perderlos al cambiar de móvil, expórtalos (Enviar o Descargar disenos.json).</p></div>
+<h2>Contraseña de acceso</h2>
+<div class="card"><p>La app pide contraseña si en su carpeta existe el archivo <code>acceso.json</code>. Ese archivo no contiene la contraseña, solo una huella cifrada (PBKDF2-SHA256). Para cambiarla: escribe la nueva aquí, descarga <code>acceso.json</code>, sustitúyelo en GitHub y sube la versión. Al cambiarla, todas tendrán que escribir la nueva una vez.</p>
+<p class="small">Es una barrera de acceso para la app. Como el repositorio es público, el código sigue siendo visible en GitHub: no guardes ahí nada confidencial.</p>
+<div class="row2" style="max-width:520px"><div><label>Nueva contraseña</label><input type="password" id="npw1" autocomplete="new-password"></div><div><label>Repítela</label><input type="password" id="npw2" autocomplete="new-password"></div></div>
+<div class="bar" style="margin-top:10px"><button class="btn sec" id="npwBtn">Descargar acceso.json</button><button class="btn sec" id="lockBtn">Cerrar sesión en este dispositivo</button></div></div>
 <h2>Opciones para el proyecto (de más a menos recomendada)</h2>
 <div class="card"><span class="rank">1</span><h3 style="margin-top:0">App web paramétrica propia (esta) → app instalable sin conexión (PWA)</h3>
 <p>JavaScript + SVG en el navegador, sin servidor. Funciona en móvil, tableta y PC; imprime a escala real; la base de medidas es un archivo JSON fácil de ampliar. Siguiente paso: convertirla en PWA instalable, generar PDF por capas por talla, calibración de impresora y guardar en la nube las muñecas de cada usuaria.</p>
@@ -937,7 +958,12 @@ fetch('disenos.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{COM=
 renderDesigns();renderCust();
 
 // ---------- PWA: instalación y actualizaciones ----------
-const APP_VERSION='1.0.0';
+const APP_VERSION='1.1.0';
+$('#npwBtn').onclick=async()=>{const a=$('#npw1').value,b=$('#npw2').value;
+  if(a.length<8){toast('Usa al menos 8 caracteres (mejor 10 o más)');return}if(a!==b){toast('Las dos contraseñas no coinciden');return}
+  if(!window.UGATE||!crypto.subtle){toast('Este navegador no puede generar la huella (necesita HTTPS)');return}
+  const cfg=await UGATE.makeAccess(a);$('#npw1').value=$('#npw2').value='';save('acceso.json',JSON.stringify(cfg))};
+$('#lockBtn').onclick=()=>{if(window.UGATE)UGATE.lock()};
 $('#verTxt').textContent='Versión instalada: '+APP_VERSION+'.';
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('#installBtn').style.display='inline-flex'});
